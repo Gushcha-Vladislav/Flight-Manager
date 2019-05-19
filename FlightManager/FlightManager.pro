@@ -29,12 +29,14 @@ SOURCES += \
         graph.cpp \
         main.cpp \
         mainwindow.cpp \
+        serialize.cpp \
         vertex.cpp
 
 HEADERS += \
         edge.h \
         graph.h \
         mainwindow.h \
+        serialize.h \
         vertex.h
 
 FORMS += \
@@ -44,3 +46,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    graph.json
