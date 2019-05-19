@@ -29,7 +29,10 @@ SOURCES += \
         mainwindow.cpp
 
 HEADERS += \
-        mainwindow.h
+        edge.h \
+        graph.h \
+        mainwindow.h \
+        vertex.h
 
 FORMS += \
         mainwindow.ui
