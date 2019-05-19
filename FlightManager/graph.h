@@ -1,16 +1,15 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-#include <unordered_map>
 #include <vertex.h>
 
 class Graph {
     private:
         static int id;
-        std::unordered_map<int, Vertex> *vertexs;
+        std::vector<Vertex> *vertexs;
     public:
         Graph();
-        Graph(std::unordered_map<int, Vertex> *vertes, int id);
+        Graph(std::vector<Vertex> *vertes, int id);
         Vertex add_vertex(Vertex vertex);
         void delete_vertex(int id);
         Vertex add_edge(int id, Edge edge);
