@@ -7,11 +7,10 @@
 class Graph {
     private:
         static int id;
-        std::unordered_map<int, Vertex> vertexs;
+        std::unordered_map<int, Vertex> *vertexs;
     public:
         Graph();
-        ~Graph();
-        Graph(Vertex *vertexs);
+        Graph(std::unordered_map<int, Vertex> *vertes, int id);
         Vertex add_vertex(Vertex vertex);
         void delete_vertex(int id);
         Vertex add_edge(int id, Edge edge);

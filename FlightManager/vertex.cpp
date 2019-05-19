@@ -1,5 +1,5 @@
 #include <vertex.h>
-
+/*
 Vertex::Vertex(std::string name, double pos_x, double pos_y){
     this->name = name;
     this->pos_x = pos_x;
@@ -8,3 +8,4 @@ Vertex::Vertex(std::string name, double pos_x, double pos_y){
 
 Vertex::Vertex(std::string name, double pos_x, double pos_y, std::unordered_set<Edge> edges){
 }
+*/
