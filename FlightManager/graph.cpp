@@ -63,10 +63,10 @@ std::string Graph::find_way(int from_id, int to_id)
     int begin_vert_index = 0;
     int end_vert_index = 0;
 
-    foreach (Vertex vert, this->vertexs) {
+    for(auto vert = this->vertexs->begin();vert!=this->vertexs->end();++vert) {
         if ((begin_vert_index != 0) && (end_vert_index != 0)) break;
-        if (vert.get_id() == from_id) begin_vert_index = vert.get_id();
-        if (vert.get_id() == to_id) end_vert_index = vert.get_id();
+        if (vert->get_id() == from_id) begin_vert_index = vert->get_id();
+        if (vert->get_id() == to_id) end_vert_index = vert->get_id();
     }
 
     std::swap(this->vertexs->at(0), this->vertexs->at(begin_vert_index));
@@ -81,8 +81,10 @@ std::string Graph::find_way(int from_id, int to_id)
           int temp_time = 0;
           std::vector<Edge>* edges = this->vertexs->at(i).get_edges();
           int to_vert_id = this->vertexs->at(j).get_id();
-          foreach (Edge edge, edges) {
-              if (edge.get_to_id() == to_vert_id) temp_time = edge.get_fly_time();
+
+
+          for(auto edge = edges->begin();edge!=edges->end();++edge) {
+              if (edge->get_to_id() == to_vert_id) temp_time = edge->get_fly_time();
           }
           a[i][j] = temp_time;
           a[j][i] = temp_time;
@@ -165,5 +167,4 @@ std::string Graph::find_way(int from_id, int to_id)
       }
 
     qDebug();
-
 }
