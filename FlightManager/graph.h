@@ -9,11 +9,12 @@ class Graph {
         std::vector<Vertex> *vertexs;
     public:
         Graph();
-        Graph(std::vector<Vertex> *vertes, int id);
-        Vertex add_vertex(Vertex vertex);
-        void delete_vertex(int id);
+        Graph(std::vector<Vertex> *vertes);
+        Graph* add_vertex(Vertex vertex);
+        ~Graph();
+        void delete_vertex(int vertex_id);
         Vertex add_edge(int id, Edge edge);
-        void delete_edge(int id, Edge edge);
+        void delete_edge(int id, int edge_id);
         void drow();
         std::string find_way();
         void serilization();
