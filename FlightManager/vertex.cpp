@@ -66,8 +66,3 @@ void Vertex::delete_edge(int edge_id){
         break;
     }
 }
-
-Vertex::~Vertex(){
-    this->edges->clear();
-    delete this->edges;
-}

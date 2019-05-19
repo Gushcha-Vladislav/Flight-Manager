@@ -18,7 +18,6 @@ class Vertex{
         Vertex(std::string name, double pos_x, double pos_y);
         Vertex(std::string name, double pos_x, double pos_y, std::vector<Edge> *edges);
         Vertex(int id, std::string name, double pos_x, double pos_y, std::vector<Edge> *edges);
-        ~Vertex();
         double get_pos_x();
         double get_pos_y();
         std::string get_name();

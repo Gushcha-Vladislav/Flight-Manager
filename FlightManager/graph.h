@@ -19,5 +19,6 @@ class Graph {
         std::string find_way(int from_id, int to_id);
         void serilization();
         void deserilization();
+        std::vector<Vertex>* initTestVertexes();
 };
 #endif // GRAPH_H
