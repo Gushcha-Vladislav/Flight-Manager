@@ -1,56 +1,63 @@
 #include <graph.h>
 #include <QDebug>
 
-Graph::Graph()
+template <template <class E> class V, class E>
+Graph<V, E>::Graph()
 {
-    this->vertexs = new std::vector<Vertex>;
+    this->verteces = new std::vector<V<E>>;
 }
 
-Graph::Graph(std::vector<Vertex> *vertes)
+template <template <class E> class V, class E>
+Graph<V, E>::Graph(std::vector<V<E>> *vertices)
 {
-    this->vertexs = vertes;
+    this->vertices = vertices;
 }
 
-Graph* Graph::add_vertex(Vertex vertex)
+template <template <class E> class V, class E>
+Graph<V, E>* Graph<V, E>::add_vertex(V<E> vertex)
 {
-    this->vertexs->push_back(vertex);
+    this->vertices->push_back(vertex);
     return this;
 }
 
-void Graph::delete_vertex(int vertex_id)
+template <template <class E> class V, class E>
+void Graph<V, E>::delete_vertex(int vertex_id)
 {
-    for(auto iter = this->vertexs->begin();iter!=this->vertexs->end(); ++iter)
+    for(auto iter = this->vertices->begin();iter!=this->vertices->end(); ++iter)
     {
         if(iter->get_id() == vertex_id)
-            this->vertexs->erase(iter);
+            this->vertices->erase(iter);
         break;
     }
 }
 
-Vertex Graph::add_edge(int id, Edge edge)
+template <template <class E> class V, class E>
+V<E> Graph<V, E>::add_edge(int id, E edge)
 {
-    for(auto iter = this->vertexs->begin();iter!=this->vertexs->end(); ++iter)
+    for(auto iter = this->vertices->begin();iter!=this->vertices->end(); ++iter)
     {
         if(iter->get_id() == id)
             iter->add_edge(edge);
     }
 }
 
-void Graph::delete_edge(int vertex_id, int edge_id)
+template <template <class E> class V, class E>
+void Graph<V, E>::delete_edge(int vertex_id, int edge_id)
 {
-    for(auto iter = this->vertexs->begin();iter!=this->vertexs->end(); ++iter)
+    for(auto iter = this->vertices->begin();iter!=this->vertices->end(); ++iter)
     {
         if(iter->get_id() == vertex_id)
             iter->delete_edge(edge_id);
     }
 }
 
-Graph::~Graph(){
-    this->vertexs->clear();
+template <template <class E> class V, class E>
+Graph<V, E>::~Graph(){
+    this->vertices->clear();
     delete this->vertexs;
 }
-
-std::string Graph::find_way(int from_id, int to_id)
+template <template <class E> class V, class E>
+std::string Graph<V,E>::find_way(int from_id, int to_id)
 {
 
 //   Debug version with test data
@@ -63,7 +70,7 @@ std::string Graph::find_way(int from_id, int to_id)
 //   }
 
    // Release version
-   std::vector<Vertex>* vertexes = this->vertexs;
+   std::vector<Vertex<E>>* vertexes = this->vertexs;
 
     int MAX_INT = 100000;
     int SIZE = vertexes->size();
@@ -175,7 +182,8 @@ std::string Graph::find_way(int from_id, int to_id)
    return fullWay;
 }
 
-std::vector<Vertex>* Graph::initTestVertexes() {
+//I can't do it with generics and want to sleep (((
+/*std::vector<V<E>>* Graph<V,E>::initTestVertexes() {
     Edge *e35 = new Edge(5,8);
     Edge *e36 = new Edge(6,5);
 
@@ -221,4 +229,4 @@ std::vector<Vertex>* Graph::initTestVertexes() {
     vertexes->push_back(*v3);
 
     return vertexes;
-}
+}*/

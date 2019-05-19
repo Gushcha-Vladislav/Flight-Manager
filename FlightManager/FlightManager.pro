@@ -35,6 +35,7 @@ SOURCES += \
 HEADERS += \
         edge.h \
         graph.h \
+        iterator.h \
         mainwindow.h \
         serialize.h \
         vertex.h
