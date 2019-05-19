@@ -13,6 +13,8 @@ Graph::Graph(std::vector<Vertex> *vertes, int id)
 
 std::string Graph::find_way(int from_id, int to_id)
 {
+
+//    Vertex v1 = new Vertex('Moscow', 10, 10, );
     int SIZE = this->vertexs->size();
     int a[SIZE][SIZE]; // матрица связей
     int d[SIZE]; // минимальное расстояние
@@ -26,11 +28,14 @@ std::string Graph::find_way(int from_id, int to_id)
       a[i][i] = 0;
 
       for (int j = i + 1; j<SIZE; j++) {
-//        printf("Введите расстояние %d - %d: ", i + 1, j + 1);
-//        scanf("%d", &temp);
-
-        a[i][j] = temp;
-        a[j][i] = temp;
+          int temp_time = 0;
+          std::vector<Edge>* edges = this->vertexs->at(i).get_edges();
+          int to_vert_id = this->vertexs->at(j).id;
+          foreach (Edge edge, edges) {
+              if (edge.get_to_id() == to_vert_id) temp_time = edge.get_fly_time();
+          }
+          a[i][j] = temp;
+          a[j][i] = temp;
       }
     }
     //Инициализация вершин и расстояний
