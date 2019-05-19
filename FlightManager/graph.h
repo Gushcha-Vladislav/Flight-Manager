@@ -10,6 +10,7 @@ class Graph {
         std::unordered_map<int, Vertex> vertexs;
     public:
         Graph();
+        ~Graph();
         Graph(Vertex *vertexs);
         Vertex add_vertex(Vertex vertex);
         void delete_vertex(int id);
