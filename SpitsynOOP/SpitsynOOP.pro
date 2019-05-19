@@ -25,8 +25,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        edge.cpp \
+        graph.cpp \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        vertex.cpp
 
 HEADERS += \
         edge.h \
