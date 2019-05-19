@@ -2,10 +2,10 @@
 
 Graph::Graph()
 {
-    this->vertexs = new std::unordered_map<int, Vertex>;
+    this->vertexs = new std::vector<Vertex>;
 }
 
-Graph::Graph(std::unordered_map<int, Vertex> *vertes, int id)
+Graph::Graph(std::vector<Vertex> *vertes, int id)
 {
     this->vertexs = vertes;
 }
