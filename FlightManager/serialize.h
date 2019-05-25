@@ -9,14 +9,14 @@ namespace Serializer
 class Serialize
 {
 public:
-    void exportToJson(Graph<Vertex, Edge> graph);
+    void exportToJson(Graph graph);
     void importFromJson();
     std::vector<Edge> getEdges;
-    std::vector<Vertex<Edge>> getVertex;
+    std::vector<Vertex> getVertex;
 private:
     Serialize();
     std::vector<Edge> edges;
-    std::vector<Vertex<Edge>> vertex;
+    std::vector<Vertex> vertex;
 };
 }
 #endif // SERIALIZE_H

@@ -3,23 +3,24 @@
 
 #include <vertex.h>
 
-template <template <class E> class V, class E>
+//template <template <class E> class V, class E>
 class Graph {
     private:
         static int id;
-        std::vector<V<E>> *vertices;
+        std::vector<Vertex> *vertices;
     public:
         Graph();
-        Graph(std::vector<V<E>> *vertices);
-        Graph* add_vertex(V<E> vertex);
+        Graph(std::vector<Vertex> *vertices);
+        Graph* add_vertex(Vertex vertex);
         ~Graph();
         void delete_vertex(int vertex_id);
-        V<E> add_edge(int id, E edge);
+        Vertex add_edge(int id, Edge edge);
         void delete_edge(int id, int edge_id);
         void drow();
         std::string find_way(int from_id, int to_id);
         void serilization();
         void deserilization();
+        void test();
 //        std::vector<V<E>>* initTestVertexes();
 };
 #endif // GRAPH_H
