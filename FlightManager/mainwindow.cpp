@@ -3,8 +3,7 @@
 #include "graph.h"
 #include "vertex.h"
 #include "edge.h"
-#include "graph.cpp"
-#include "vertex.cpp"
+#include "serialize.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,6 +12,8 @@ MainWindow::MainWindow(QWidget *parent) :
     Graph<Vertex,Edge> *graph = new Graph<Vertex,Edge>();
     graph->test();
     graph->~Graph();
+    Serializer::Serialize<Graph<Vertex,Edge>> *seria = new Serializer::Serialize<Graph<Vertex,Edge>>(*graph);
+    //Serializer::Serialize<Graph<Vertex,Edge>>::getInstance().importFromJson(*graph);
 
     ui->setupUi(this);
 }

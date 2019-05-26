@@ -23,4 +23,5 @@ class Graph {
         void test();
 //        std::vector<V<E>>* initTestVertexes();
 };
+#include "graph.cpp"
 #endif // GRAPH_H

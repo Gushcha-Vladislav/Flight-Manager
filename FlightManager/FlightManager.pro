@@ -29,7 +29,6 @@ SOURCES += \
         graph.cpp \
         main.cpp \
         mainwindow.cpp \
-        serialize.cpp \
         vertex.cpp
 
 HEADERS += \
@@ -38,6 +37,7 @@ HEADERS += \
         iterator.h \
         mainwindow.h \
         serialize.h \
+        singleton.h \
         vertex.h
 
 FORMS += \

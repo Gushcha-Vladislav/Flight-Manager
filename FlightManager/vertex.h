@@ -29,5 +29,5 @@ class Vertex{
         Vertex* add_edge(E edge);
         void delete_edge(int edge_id);
 };
-
+#include "vertex.cpp"
 #endif // VERTEX_H
