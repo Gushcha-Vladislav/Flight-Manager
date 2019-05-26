@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include <QApplication>
-#include "graph.cpp"
+#include "graph.h"
+#include <QDebug>
 
 int main(int argc, char *argv[])
 {
@@ -54,7 +55,10 @@ int main(int argc, char *argv[])
     vertexes->push_back(*v2);
     vertexes->push_back(*v3);
 
-    Graph<Vertex<Edge>> * g = new Graph<Vertex<Edge>>(vertexes);
-
+    Graph<Vertex,Edge> * g = new Graph<Vertex,Edge> (vertexes);
+    Iterator<Vertex<Edge>>* it = g->begin();
+    qDebug() << it->get_value().get_id();
+    it->next();
+    qDebug() << it->get_value().get_id();
     return 0;
 }

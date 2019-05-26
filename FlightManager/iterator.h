@@ -6,21 +6,56 @@
 #include <list>
 #include <iterator>
 #include <assert.h>
+#include <QDebug>
 
-template<class V>
-class  Iterator : public std::iterator<std::input_iterator_tag, V>
-{
-    friend class OwnContainer;
+template<typename T>
+class Iterator {
 private:
-    Iterator(V* value);
+    std::vector<T> * pointer;
+    int current;
 public:
-    Iterator(const V &it);
-    bool operator!=(Iterator const& other) const;
-    bool operator==(Iterator const& other) const; //need for BOOST_FOREACH
-    typename Iterator::reference operator*() const;
+    Iterator(std::vector<T> * item, int current) : pointer(item), current(current){}
+
+    bool operator!=(const Iterator<T> & iter) const;
+    bool operator==(const Iterator<T> & iter) const;
+
     Iterator& operator++();
-private:
-    V* value;
+    Iterator& operator--();
+    Iterator*  next();
+    Iterator*  prev();
+    T get_value();
+
 };
 
+template<typename T>
+bool Iterator<T>::operator==(const Iterator<T> & iter) const {
+    return pointer[current] == iter.pointer[current];
+}
+
+template<typename T>
+bool Iterator<T>::operator!=(const Iterator<T> & iter) const {
+    return pointer[current] != iter.pointer[current];
+}
+
+template<typename T>
+Iterator<T>* Iterator<T>::next(){
+    if (current == pointer->size()){
+        //some exception
+    }
+    current = current+1;
+    return this;
+}
+
+template<typename T>
+Iterator<T>* Iterator<T>::prev(){
+    if (current == 0){
+        //some exception
+    }
+    current--;
+    return this;
+}
+template<typename T>
+T Iterator<T>:: get_value(){
+    return this->pointer->at(current);
+}
 #endif // ITERATOR_H

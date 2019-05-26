@@ -1,89 +1,8 @@
 #include <graph.h>
 #include <QDebug>
 
-template <class V>
-Graph<V>::Graph()
-{
-    this->vertices = new std::vector<V>;
-};
-
-template <class V>
-Graph<V>::Graph(std::vector<V> *vertices)
-{
-    this->vertices = vertices;
-};
-
-template < class V>
-Graph<V>* Graph<V>::add_vertex(V* vertex)
-{
-    this->vertices->push_back(vertex);
-    return this;
-};
-
-template < class V>
-void Graph<V>::delete_vertex(int vertex_id)
-{
-    for(auto iter = this->vertices->begin();iter!=this->vertices->end(); ++iter)
-    {
-        if(iter->get_id() == vertex_id)
-            this->vertices->erase(iter);
-        break;
-    }
-};
-
-template < class V>
-V Graph<V>::add_edge(int id, Edge edge)
-{
-    for(auto iter = this->vertices->begin();iter!=this->vertices->end(); ++iter)
-    {
-        if(iter->get_id() == id)
-            iter->add_edge(edge);
-    }
-};
-
-
-template < class V>
-void Graph<V>::delete_edge(int vertex_id, int edge_id)
-{
-    for(auto iter = this->vertices->begin();iter!=this->vertices->end(); ++iter)
-    {
-        if(iter->get_id() == vertex_id)
-            iter->delete_edge(edge_id);
-    }
-};
-
-template < class V>
-Graph<V>::~Graph(){
-    this->vertices->clear();
-    delete this->vertices;
-};
-
-template < class V>
-Iterator<V> Graph<V>::begin()
-{
-    return iterator(this->vertices[0]);
-};
-
-template < class V>
-Iterator<V> Graph<V>::end()
-{
-    return new Iterator<V>(this->vertices[this->vertices->size()-1]);
-};
-
-template < class V>
-Iterator<const V> Graph<V>::begin() const
-{
-    return new Iterator<const V>(this->vertices[0]);
-};
-
-template < class V>
-Iterator<const V> Graph<V>::end() const
-{
-    return Iterator<const V>(this->vertices->size()-1);
-};
-
-template < class V>
-std::string Graph<V>::find_way(int from_id, int to_id)
+template< template<class E> class V, class E>
+std::string Graph<V,E>::find_way(int from_id, int to_id)
 {
 
 //   Debug version with test data
@@ -96,10 +15,10 @@ std::string Graph<V>::find_way(int from_id, int to_id)
 //   }
 
    // Release version
-   std::vector<Vertex<E>>* vertexes = this->vertexs;
+   std::vector<Vertex<Edge>>* vertexes = this->vertexs;
 
     int MAX_INT = 100000;
-    int SIZE = vertexes->size();
+    int SIZE = vertices->size();
     int a[SIZE][SIZE]; // матрица связей
     int d[SIZE]; // минимальное расстояние
     int v[SIZE]; // посещенные вершины
@@ -109,15 +28,15 @@ std::string Graph<V>::find_way(int from_id, int to_id)
     int begin_vert_index = 0;
     int end_vert_index = 0;
 
-    for(auto vert = vertexes->begin();vert!=vertexes->end();++vert) {
+    for(auto vert = vertices->begin();vert!=vertexes->end();++vert) {
         if ((begin_vert_index != 0) && (end_vert_index != 0)) break;
 
-        if (vert->get_id() == from_id) begin_vert_index = std::distance(vertexes->begin(), vert);
-        if (vert->get_id() == to_id) end_vert_index = std::distance(vertexes->begin(), vert);
+        if (vert->get_id() == from_id) begin_vert_index = std::distance(vertices->begin(), vert);
+        if (vert->get_id() == to_id) end_vert_index = std::distance(vertices->begin(), vert);
     }
 
-    std::swap(vertexes->at(0), vertexes->at(begin_vert_index));
-    std::swap(vertexes->at(SIZE - 1), vertexes->at(end_vert_index));
+    std::swap(vertices->at(0), vertexes->at(begin_vert_index));
+    std::swap(vertices->at(SIZE - 1), vertexes->at(end_vert_index));
 
     // Инициализация матрицы связей
     for (int i = 0; i<SIZE; i++)

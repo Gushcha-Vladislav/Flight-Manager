@@ -27,11 +27,9 @@ CONFIG += c++11
 SOURCES += \
         edge.cpp \
         graph.cpp \
-        iterator.cpp \
         main.cpp \
         mainwindow.cpp \
-        serialize.cpp \
-        vertex.cpp
+        serialize.cpp
 
 HEADERS += \
         edge.h \
