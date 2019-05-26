@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits>
 
 namespace GraphLib {
    template <class T>
