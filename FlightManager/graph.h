@@ -37,12 +37,16 @@ class Graph {
             }
         }
 
-        V<E> add_edge(int id, E *edge){
-            for(auto iter = this->vertices->begin();iter!=this->vertices->end(); ++iter)
-            {
-                if(iter->get_id() == id)
-                    iter->add_edge(edge);
+        E add_edge(int vertex_id, E *edge){
+            if (vertex_id!=edge->get_to_id()){
+                for(auto iter = this->vertices->begin();iter!=this->vertices->end(); ++iter)
+                {
+                    if(iter->get_id() == vertex_id){
+                       return iter->add_edge(edge);
+                    }
+                }
             }
+
         }
 
         void delete_edge(int vertex_id, int edge_id){

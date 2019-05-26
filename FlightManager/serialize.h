@@ -44,11 +44,13 @@ void Serializer::Serialize<T>::exportToJson(T* graph){
         obj["pos_y"] = iter->get_pos_y();
         for(auto iterEdge = iter->get_edges()->begin();iterEdge!=iter->get_edges()->end(); ++iterEdge)
         {
-            QJsonObject edge;
-            edge["id"] = iterEdge->get_id();
-            edge["to_id"] = iterEdge->get_to_id();
-            edge["fly_time"] = iterEdge->get_fly_time();
-            jEdges.push_back(edge);
+            if(iter->get_id()!=iterEdge->get_to_id()){
+                QJsonObject edge;
+                edge["id"] = iterEdge->get_id();
+                edge["to_id"] = iterEdge->get_to_id();
+                edge["fly_time"] = iterEdge->get_fly_time();
+                jEdges.push_back(edge);
+            }
         }
         obj["edges"] = jEdges;
         jVertices.push_back(obj);
