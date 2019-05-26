@@ -1,30 +1,29 @@
-#ifndef SINGLETON_H
-#define SINGLETON_H
-
-#include <memory>
-#include <QDebug>
-
-template <class T>
-class Singleton
-{
-private: static T singleton = NULL;
-protected:
-    Singleton() {}
-    ~Singleton() {}
-public:
-//    Singleton(Singleton const &) = delete;
-//    Singleton& operator=(Singleton const &) = delete;
-
-    static T& getInstance()
-    {
-        if (singleton == NULL) {
-            qDebug() << "NULL";
-            return new T();
-        } else {
-            qDebug() << "NOT NULLL";
-            return singleton;
-        }
+template < typename T >
+class Singleton {
+  public:
+    static T& GetInstance() {
+      static MemGuard g; // clean up on program end
+      if (!m_instance) {
+        m_instance = new T();
+      }
+      return *m_instance;
     }
-};
 
-#endif // SINGLETON_H
+    Singleton(const Singleton&) = delete;
+    Singleton& operator= (const Singleton) = delete;
+
+  protected:
+    Singleton() { };
+    virtual ~Singleton() { }
+
+  private:
+    inline static T * m_instance = nullptr;
+
+    class MemGuard {
+      public:
+        ~MemGuard() {
+          delete m_instance;
+          m_instance = nullptr;
+        }
+    };
+};

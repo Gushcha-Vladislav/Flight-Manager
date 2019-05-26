@@ -12,23 +12,31 @@
 #include <QFile>
 #include <QDebug>
 
+
 namespace Serializer
 {
 template <class T>
-class Serialize
+class Serialize : public Singleton<Serialize<T>>
 {
+private:
+    Serialize();
 public:
     void exportToJson(T* graph);
     void importFromJson(T* graph);
-    Serialize(T* graph);
+    Serialize(const Serialize&) = delete;
+    Serialize& operator=(const Serialize &) = delete;
+    Serialize(Serialize &&) = delete;
+    Serialize & operator=(Serialize &&) = delete;
+
+    static Serialize& instance(){
+        static Serialize test;
+        return test;
+    }
 };
 }
 
 template <class T>
-Serializer::Serialize<T>::Serialize(T* graph)
-{
-    importFromJson(graph);
-}
+Serializer::Serialize<T>::Serialize(){}
 
 template <class T>
 void Serializer::Serialize<T>::exportToJson(T* graph){
