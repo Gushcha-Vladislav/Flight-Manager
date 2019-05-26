@@ -11,7 +11,7 @@ Vertex<E>::Vertex(std::string name, double pos_x, double pos_y)
     this->pos_x = pos_x;
     this->pos_y = pos_y;
     this->edges = new std::vector<E>;
-}
+};
 
 
 template < class E>
@@ -19,7 +19,7 @@ Vertex<E>::Vertex(std::string name, double pos_x, double pos_y, std::vector<E> *
 {
     Vertex(name,pos_x,pos_y);
     this->edges = edges;
-}
+};
 
 template < class E>
 Vertex<E>::Vertex(int id, std::string name, double pos_x, double pos_y, std::vector<E> *edges)
@@ -30,44 +30,44 @@ Vertex<E>::Vertex(int id, std::string name, double pos_x, double pos_y, std::vec
     this->pos_x = pos_x;
     this->pos_y = pos_y;
     this->edges = edges;
-}
+};
 
 template < class E>
 double Vertex<E>::get_pos_x()
 {
     return this->pos_x;
-}
+};
 
 template < class E>
 double Vertex<E>::get_pos_y()
 {
     return this->pos_y;
-}
+};
 
 template < class E>
 std::string Vertex<E>::get_name()
 {
         return this->name;
-}
+};
 
 template < class E>
 std::vector<E>* Vertex<E>::get_edges()
 {
             return this->edges;
-}
+};
 
 template < class E>
 Vertex<E>* Vertex<E>::add_edge(E edge)
 {
     this->edges->push_back(edge);
     return this;
-}
+};
 
 template < class E>
 int Vertex<E>::get_id()
 {
     return this->id;
-}
+};
 
 template < class E>
 void Vertex<E>::delete_edge(int edge_id){
@@ -77,10 +77,6 @@ void Vertex<E>::delete_edge(int edge_id){
             this->edges->erase(iter);
         break;
     }
-}
+};
 
-template < class E>
-Vertex<E>::~Vertex(){
-    this->edges->clear();
-    delete this->edges;
-}
+

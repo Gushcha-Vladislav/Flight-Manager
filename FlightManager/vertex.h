@@ -5,7 +5,7 @@
 #include <vector>
 #include <edge.h>
 
-template < class E>
+template <class E>
 class Vertex{
     private:
         static int CURRENT_ID;
@@ -13,13 +13,12 @@ class Vertex{
         std::string name;
         double pos_x;
         double pos_y;
-        std::vector<E> *edges;
+        std::vector<Edge> *edges;
 
      public:
         Vertex(std::string name, double pos_x, double pos_y);
         Vertex(std::string name, double pos_x, double pos_y, std::vector<E> *edges);
         Vertex(int id, std::string name, double pos_x, double pos_y, std::vector<E> *edges);
-        ~Vertex();
         double get_pos_x();
         double get_pos_y();
         std::string get_name();

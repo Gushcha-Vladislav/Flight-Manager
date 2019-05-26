@@ -9,7 +9,7 @@ namespace Serializer
 class Serialize
 {
 public:
-    void exportToJson(Graph<Vertex, Edge> graph);
+    void exportToJson(Graph<Vertex<Edge>> graph);
     void importFromJson();
     std::vector<Edge> getEdges;
     std::vector<Vertex<Edge>> getVertex;
