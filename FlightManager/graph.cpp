@@ -1,86 +1,7 @@
 #include <graph.h>
 #include <QDebug>
 
-template <template <class E> class V, class E>
-Graph<V,E>::Graph()
-{
-    this->vertices = new std::vector<V<E>>;
-}
-
-template <template <class E> class V, class E>
-Graph<V,E>::Graph(std::vector<V<E>> *vertices)
-{
-    this->vertices = vertices;
-}
-
-template <template <class E> class V, class E>
-Graph<V,E> * Graph<V,E>::add_vertex(V<E> vertex)
-{
-    for(auto iter = this->vertices->begin();iter!=this->vertices->end(); ++iter)
-    {
-        if(iter->get_id() == vertex.get_id())
-            this->vertices->erase(iter);
-        break;
-    }
-    this->vertices->push_back(vertex);
-    return this;
-}
-
-template <template <class E> class V, class E>
-void Graph<V,E>::delete_vertex(int vertex_id)
-{
-    for(auto iter = this->vertices->begin();iter!=this->vertices->end(); ++iter)
-    {
-        if(iter->get_id() == vertex_id)
-            this->vertices->erase(iter);
-        break;
-    }
-}
-
-template <template <class E> class V, class E>
-V<E> Graph<V,E>::add_edge(int id, E edge)
-{
-    for(auto iter = this->vertices->begin();iter!=this->vertices->end(); ++iter)
-    {
-        if(iter->get_id() == id)
-            iter->add_edge(edge);
-    }
-}
-
-template <template <class E> class V, class E>
-void Graph<V,E>::delete_edge(int vertex_id, int edge_id)
-{
-    for(auto iter = this->vertices->begin();iter!=this->vertices->end(); ++iter)
-    {
-        if(iter->get_id() == vertex_id)
-            iter->delete_edge(edge_id);
-    }
-}
-
-template <template <class E> class V, class E>
-Graph<V,E>::~Graph(){
-    this->vertices->clear();
-    delete this->vertices;
-}
-
-template <template <class E> class V, class E>
-void Graph<V,E>::test(){
-    V<E> *vert = new V<E>("A",1.2,2.4);
-    V<E> *vert1 = new V<E>("B",1.3,2.24);
-    E *q = new E(1,5);
-    E *q1 = new E(2,3);
-    vert->add_edge(*q);
-    this->add_vertex(*vert);
-    vert->add_edge(*q1);
-    this->add_vertex(*vert);
-    this->add_edge(0,*q1);
-    this->delete_edge(0,1);
-    //graph->add_edge(0);
-    this->delete_vertex(0);
-    //graph->delete_vertex(0);
-}
-
-template <template <class E> class V, class E>
+template< template<class E> class V, class E>
 std::string Graph<V,E>::find_way(int from_id, int to_id)
 {
 
@@ -97,7 +18,7 @@ std::string Graph<V,E>::find_way(int from_id, int to_id)
    std::vector<V<E>>* vertexes = this->vertices;
 
     int MAX_INT = 100000;
-    int SIZE = vertexes->size();
+    int SIZE = vertices->size();
     int a[SIZE][SIZE]; // матрица связей
     int d[SIZE]; // минимальное расстояние
     int v[SIZE]; // посещенные вершины
@@ -107,15 +28,23 @@ std::string Graph<V,E>::find_way(int from_id, int to_id)
     int begin_vert_index = 0;
     int end_vert_index = 0;
 
-    for(auto vert = vertexes->begin();vert!=vertexes->end();++vert) {
+    for(auto vert = vertices->begin();vert!=vertexes->end();++vert) {
         if ((begin_vert_index != 0) && (end_vert_index != 0)) break;
 
-        if (vert->get_id() == from_id) begin_vert_index = std::distance(vertexes->begin(), vert);
-        if (vert->get_id() == to_id) end_vert_index = std::distance(vertexes->begin(), vert);
+        if (vert->get_id() == from_id) {
+            begin_vert_index = std::distance(vertices->begin(), vert);
+        }
+        if (vert->get_id() == to_id) {
+            end_vert_index = std::distance(vertices->begin(), vert);
+        }
     }
 
-    std::swap(vertexes->at(0), vertexes->at(begin_vert_index));
-    std::swap(vertexes->at(SIZE - 1), vertexes->at(end_vert_index));
+    if (end_vert_index == 0) {
+        std::swap(vertices->at(0), vertices->at(begin_vert_index));
+        end_vert_index = begin_vert_index;
+    }
+
+    std::swap(vertices->at(SIZE - 1), vertexes->at(end_vert_index));
 
     // Инициализация матрицы связей
     for (int i = 0; i<SIZE; i++)
@@ -178,7 +107,7 @@ std::string Graph<V,E>::find_way(int from_id, int to_id)
       // Восстановление пути
       std::vector<std::string>* way = new std::vector<std::string>();
       int end = SIZE - 1; // индекс конечной вершины = 5 - 1
-      way->push_back(vertexes->at(end).get_name()); // начальный элемент - конечная вершина
+      way->push_back(vertices->at(end).get_name()); // начальный элемент - конечная вершина
       int k = 1; // индекс предыдущей вершины
       int weight = d[end]; // вес конечной вершины
 
@@ -192,10 +121,12 @@ std::string Graph<V,E>::find_way(int from_id, int to_id)
             {                 // значит из этой вершины и был переход
               weight = temp; // сохраняем новый вес
               end = i;
-              way->push_back(vertexes->at(i).get_name());// сохраняем предыдущую вершину
+              way->push_back(vertices->at(i).get_name());// сохраняем предыдущую вершину
               k++;
             }
           }
+
+        if (end == SIZE - 1) return "No ways";
       }
       std::string fullWay = way->at(way->size() - 1);
 
