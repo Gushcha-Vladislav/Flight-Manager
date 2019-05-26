@@ -31,14 +31,14 @@ SOURCES += \
         mainwindow.cpp \
 
 HEADERS += \
+        allocimpl.h \
         edge.h \
         graph.h \
         iterator.h \
         mainwindow.h \
         serialize.h \
         singleton.h \
-        vertex.h \
-        vertexallocator.h
+        vertex.h
 
 FORMS += \
         mainwindow.ui

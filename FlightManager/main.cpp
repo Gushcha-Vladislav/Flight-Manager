@@ -6,11 +6,11 @@
 
 int main(int argc, char *argv[])
 {
-//    QApplication a(argc, argv);
-//    MainWindow w;
-//    w.show();
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
 
-//    return a.exec();
+    return a.exec();
 
     /*Edge *e35 = new Edge(5,8);
     Edge *e36 = new Edge(6,5);

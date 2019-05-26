@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <edge.h>
+#include "allocimpl.h"
 
 template <class E>
 class Vertex{
@@ -13,7 +14,7 @@ class Vertex{
         std::string name;
         double pos_x;
         double pos_y;
-        std::vector<E> *edges;
+        std::vector<Edge,GraphLib::AllocImpl<Edge>> *edges;
 
      public:
         Vertex(std::string name, double pos_x, double pos_y){
@@ -21,10 +22,10 @@ class Vertex{
             this->name = name;
             this->pos_x = pos_x;
             this->pos_y = pos_y;
-            this->edges = new std::vector<E>;
+            this->edges = new std::vector<Edge,GraphLib::AllocImpl<Edge>>;
         }
 
-        Vertex(std::string name, double pos_x, double pos_y, std::vector<E> *edges){
+        Vertex(std::string name, double pos_x, double pos_y, std::vector<Edge,GraphLib::AllocImpl<Edge>>* edges){
             this->id = CURRENT_ID++;
             this->name = name;
             this->pos_x = pos_x;
@@ -38,7 +39,15 @@ class Vertex{
             this->name = name;
             this->pos_x = pos_x;
             this->pos_y = pos_y;
-            this->edges = new std::vector<E>;
+        }
+
+        Vertex(int id, std::string name, double pos_x, double pos_y, std::vector<Edge,GraphLib::AllocImpl<Edge>>* edges){
+            if (id > CURRENT_ID)    CURRENT_ID = id;
+            this->id = id;
+            this->name = name;
+            this->pos_x = pos_x;
+            this->pos_y = pos_y;
+            this->edges = edges;
         }
 
         bool operator==(const Vertex<E> & v){
@@ -70,7 +79,7 @@ class Vertex{
             return this->id;
         }
 
-        std::vector<E>* get_edges(){
+        std::vector<Edge,GraphLib::AllocImpl<Edge>> get_edges(){
             return this->edges;
         }
 

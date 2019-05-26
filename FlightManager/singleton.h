@@ -2,21 +2,28 @@
 #define SINGLETON_H
 
 #include <memory>
+#include <QDebug>
 
 template <class T>
 class Singleton
 {
+private: static T singleton = NULL;
 protected:
     Singleton() {}
     ~Singleton() {}
 public:
-    Singleton(Singleton const &) = delete;
-    Singleton& operator=(Singleton const &) = delete;
+//    Singleton(Singleton const &) = delete;
+//    Singleton& operator=(Singleton const &) = delete;
 
     static T& getInstance()
     {
-        static T* instance;
-        return instance;
+        if (singleton == NULL) {
+            qDebug() << "NULL";
+            return new T();
+        } else {
+            qDebug() << "NOT NULLL";
+            return singleton;
+        }
     }
 };
 

@@ -9,13 +9,13 @@ template< template<class E> class V, class E>
 class Graph {
     private:
         static int id;
-        std::vector<V<E>> *vertices;
+        std::vector<V<E>,GraphLib::AllocImpl<V<E>>> *vertices;
     public:
         Graph(){
-            this->vertices = new std::vector<V<E>>;
+            this->vertices = new std::vector<V<E>,GraphLib::AllocImpl<V<E>>>;
         }
 
-        Graph( std::vector<V<E>> *vertices){
+        Graph( std::vector<int,GraphLib::AllocImpl<V<E>>> vertices){
             this->vertices = vertices;
         }
 
