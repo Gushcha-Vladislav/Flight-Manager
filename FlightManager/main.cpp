@@ -61,7 +61,8 @@ int main(int argc, char *argv[])
     qDebug() << it->get_value().get_id();
     it->next();
     qDebug() << it->get_value().get_id();*/
-    /*Graph<Vertex,Edge> *graph = new Graph<Vertex,Edge>();
-    Serializer::Serialize<Graph<Vertex,Edge>> *seria = new Serializer::Serialize<Graph<Vertex,Edge>>(graph);*/
+    Graph<Vertex,Edge> *graph = new Graph<Vertex,Edge>();
+    Serializer::Serialize<Graph<Vertex,Edge>> *seria = new Serializer::Serialize<Graph<Vertex,Edge>>(graph);
+    seria->exportToJson(graph);
     return 0;
 }

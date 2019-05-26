@@ -8,7 +8,6 @@
 template< template<class E> class V, class E>
 class Graph {
     private:
-        static int id;
         std::vector<V<E>> *vertices;
     public:
         Graph(){
@@ -52,6 +51,9 @@ class Graph {
                 if(iter->get_id() == vertex_id)
                     iter->delete_edge(edge_id);
             }
+        }
+        std::vector<V<E>>* getVertices(){
+            return this->vertices;
         }
 
         void drow(){
