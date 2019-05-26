@@ -37,7 +37,8 @@ HEADERS += \
         mainwindow.h \
         serialize.h \
         singleton.h \
-        vertex.h
+        vertex.h \
+        vertexallocator.h
 
 FORMS += \
         mainwindow.ui
