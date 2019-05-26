@@ -33,6 +33,7 @@ SOURCES += \
 HEADERS += \
         allocimpl.h \
         edge.h \
+        exceptions.h \
         graph.h \
         iterator.h \
         mainwindow.h \

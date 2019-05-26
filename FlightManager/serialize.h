@@ -4,6 +4,7 @@
 #include "graph.h"
 #include "edge.h"
 #include "singleton.h"
+#include "exceptions.h"
 
 #include <QJsonObject>
 #include <QJsonArray>
@@ -64,8 +65,7 @@ void Serializer::Serialize<T>::exportToJson(T* graph){
     if (save_file.exists())
         save_file.remove();
     if (!save_file.open(QIODevice::WriteOnly)) {
-        //throw exception
-        qDebug()<<"pukexp";
+        throw FileException(path.toStdString());
     }
     save_file.write(json_string.toLocal8Bit());
     save_file.close();
@@ -73,10 +73,10 @@ void Serializer::Serialize<T>::exportToJson(T* graph){
 
 template <class T>
 void Serializer::Serialize<T>::importFromJson(T* graph){
-    QFile file("../FlightManager/graph.json");
+    QString path = "../FlightManager/graph.json";
+    QFile file(path);
     if (!file.open(QIODevice::ReadOnly)) {
-        //throw exception
-        qDebug()<<"pukimp"<<endl;
+        throw FileException(path.toStdString());
     }
     QByteArray rawData = file.readAll();
     file.close();
@@ -92,7 +92,12 @@ void Serializer::Serialize<T>::importFromJson(T* graph){
         for(auto iter = jEdges.begin();iter!=jEdges.end(); ++iter)
         {
             QJsonObject objEdges = iter->toObject();
-            graph->add_edge(obj["id"].toInt(),new Edge(objEdges["id"].toInt(),objEdges["to_id"].toInt(),objEdges["fly_time"].toInt()));
+            try {
+                graph->add_edge(obj["id"].toInt(),new Edge(objEdges["id"].toInt(),objEdges["to_id"].toInt(),objEdges["fly_time"].toInt()));
+            } catch (EdgeLoopException e) {
+                std::cerr<<"loop exception"<<std::endl;
+            }
+
         }
     }
 }

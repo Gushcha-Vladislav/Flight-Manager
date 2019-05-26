@@ -49,10 +49,10 @@ namespace GraphLib {
        // allocate but don't initialize num elements of type T
        pointer allocate (size_type num, const void* = 0) {
            // print message and allocate memory with global new
-           std::cerr << "allocate " << num << " element(s)"
-                     << " of size " << sizeof(T) << std::endl;
+           //std::cerr << "allocate " << num << " element(s)"
+           //          << " of size " << sizeof(T) << std::endl;
            pointer ret = (pointer)(::operator new(num*sizeof(T)));
-           std::cerr << " allocated at: " << (void*)ret << std::endl;
+           //std::cerr << " allocated at: " << (void*)ret << std::endl;
            return ret;
        }
 
@@ -71,9 +71,9 @@ namespace GraphLib {
        // deallocate storage p of deleted elements
        void deallocate (pointer p, size_type num) {
            // print message and deallocate memory with global delete
-           std::cerr << "deallocate " << num << " element(s)"
-                     << " of size " << sizeof(T)
-                     << " at: " << (void*)p << std::endl;
+           //std::cerr << "deallocate " << num << " element(s)"
+           //          << " of size " << sizeof(T)
+           //          << " at: " << (void*)p << std::endl;
            ::operator delete((void*)p);
        }
    };

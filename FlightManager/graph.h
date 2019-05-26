@@ -4,6 +4,7 @@
 #include <vertex.h>
 #include <iterator.h>
 #include <iostream>
+#include "exceptions.h"
 
 template< template<class E> class V, class E>
 class Graph {
@@ -19,9 +20,9 @@ class Graph {
             this->vertices = vertices;
         }
 
-        Graph* add_vertex(V<E>* vertex){
+        V<E> add_vertex(V<E>* vertex){
             this->vertices->push_back(*vertex);
-            return this;
+            return this->vertices->at(this->vertices->size()-1);
         }
 
         ~Graph(){
@@ -48,7 +49,10 @@ class Graph {
                     }
                 }
             }
-            else return false;
+            else {
+                throw EdgeLoopException(std::to_string(edge->get_id()));
+                //return false;
+            }
 
         }
 
