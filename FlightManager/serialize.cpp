@@ -1,6 +1,7 @@
 #include "serialize.h"
 
-Serializer::Serialize::Serialize()
+template <template <class> class V, class E>
+Serializer::Serialize<V,E>::Serialize()
 {
 
 }
