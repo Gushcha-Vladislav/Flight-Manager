@@ -1,40 +1,35 @@
-{  
-   "vertices":[  
-      {  
-         "id":1,
-         "name":"Moscow",
-         "pos_x":0.25,
-         "pos_y":0.25,
-         "edges":[  
-            {  
-               "id":1,
-               "to_id":2,
-               "fly_time":10
-            },
-            {  
-               "id":2,
-               "to_id":2,
-               "fly_time":20
-            }
-         ]
-      },
-      {  
-         "id":2,
-         "name":"SPb",
-         "pos_x":-0.26,
-         "pos_y":-0.24,
-         "edges":[  
-            {  
-               "id":3,
-               "to_id":1,
-               "fly_time":10
-            },
-            {  
-               "id":4,
-               "to_id":2,
-               "fly_time":21
-            }
-         ]
-      }
-   ]
+{
+    "vertices": [
+        {
+            "edges": [
+                {
+                    "fly_time": 10,
+                    "id": 1,
+                    "to_id": 2
+                },
+                {
+                    "fly_time": 20,
+                    "id": 2,
+                    "to_id": 2
+                }
+            ],
+            "id": 1,
+            "name": "Moscow",
+            "pos_x": 0.25,
+            "pos_y": 0.25
+        },
+        {
+            "edges": [
+                {
+                    "fly_time": 10,
+                    "id": 3,
+                    "to_id": 1
+                }
+            ],
+            "id": 2,
+            "name": "SPb",
+            "pos_x": -0.26,
+            "pos_y": -0.24
+        }
+    ]
 }
