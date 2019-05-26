@@ -38,16 +38,17 @@ class Graph {
             }
         }
 
-        E *add_edge(int vertex_id, E *edge){
+        bool add_edge(int vertex_id, E *edge){
             if (vertex_id!=edge->get_to_id()){
                 for(auto iter = this->vertices->begin();iter!=this->vertices->end(); ++iter)
                 {
                     if(iter->get_id() == vertex_id){
-                       return iter->add_edge(edge);
+                        iter->add_edge(edge);
+                        return true;
                     }
                 }
             }
-            else return nullptr;
+            else return false;
 
         }
 

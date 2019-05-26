@@ -25,13 +25,13 @@ class Vertex{
             this->edges = new std::vector<Edge,GraphLib::AllocImpl<Edge>>;
         }
 
-        Vertex(std::string name, double pos_x, double pos_y, std::vector<Edge,GraphLib::AllocImpl<Edge>>* edges){
+        /*Vertex(std::string name, double pos_x, double pos_y, std::vector<Edge,GraphLib::AllocImpl<Edge>>* edges){
             this->id = CURRENT_ID++;
             this->name = name;
             this->pos_x = pos_x;
             this->pos_y = pos_y;
             this->edges = edges;
-        }
+        }*/
 
         Vertex(int id, std::string name, double pos_x, double pos_y){
             if (id > CURRENT_ID)    CURRENT_ID = id;
@@ -39,15 +39,7 @@ class Vertex{
             this->name = name;
             this->pos_x = pos_x;
             this->pos_y = pos_y;
-        }
-
-        Vertex(int id, std::string name, double pos_x, double pos_y, std::vector<Edge,GraphLib::AllocImpl<Edge>>* edges){
-            if (id > CURRENT_ID)    CURRENT_ID = id;
-            this->id = id;
-            this->name = name;
-            this->pos_x = pos_x;
-            this->pos_y = pos_y;
-            this->edges = edges;
+            this->edges = new std::vector<Edge,GraphLib::AllocImpl<Edge>>;
         }
 
         bool operator==(const Vertex<E> & v){
@@ -83,9 +75,9 @@ class Vertex{
             return this->edges;
         }
 
-        E* add_edge(E *edge){
+        E add_edge(E *edge){
             this->edges->push_back(*edge);
-            return &this->edges->at(edges->size()-1);
+            return this->edges->at(edges->size()-1);
         }
 
         void delete_edge(int edge_id){
