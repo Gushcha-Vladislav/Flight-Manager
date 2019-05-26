@@ -19,8 +19,8 @@ class Graph {
             this->vertices = vertices;
         }
 
-        Graph* add_vertex(V<E> *vertex){
-            this->vertices->push_back(vertex);
+        Graph* add_vertex(V<E>* vertex){
+            this->vertices->push_back(*vertex);
             return this;
         }
 
@@ -38,7 +38,7 @@ class Graph {
             }
         }
 
-        V<E> add_edge(int id, E edge){
+        V<E> add_edge(int id, E *edge){
             for(auto iter = this->vertices->begin();iter!=this->vertices->end(); ++iter)
             {
                 if(iter->get_id() == id)

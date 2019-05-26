@@ -25,17 +25,20 @@ class Vertex{
         }
 
         Vertex(std::string name, double pos_x, double pos_y, std::vector<E> *edges){
-            Vertex(name,pos_x,pos_y);
+            this->id = CURRENT_ID++;
+            this->name = name;
+            this->pos_x = pos_x;
+            this->pos_y = pos_y;
             this->edges = edges;
         }
 
-        Vertex(int id, std::string name, double pos_x, double pos_y, std::vector<E> *edges){
+        Vertex(int id, std::string name, double pos_x, double pos_y){
             if (id > CURRENT_ID)    CURRENT_ID = id;
             this->id = id;
             this->name = name;
             this->pos_x = pos_x;
             this->pos_y = pos_y;
-            this->edges = edges;
+            this->edges = new std::vector<E>;
         }
 
         bool operator==(const Vertex<E> & v){
@@ -71,8 +74,8 @@ class Vertex{
             return this->edges;
         }
 
-        Vertex* add_edge(E edge){
-            this->edges->push_back(edge);
+        Vertex* add_edge(E *edge){
+            this->edges->push_back(*edge);
             return this;
         }
 
