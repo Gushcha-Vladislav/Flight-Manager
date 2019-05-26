@@ -13,12 +13,13 @@ class Vertex{
         std::string name;
         double pos_x;
         double pos_y;
-        std::vector<Edge> *edges;
+        std::vector<E> *edges;
 
      public:
         Vertex(std::string name, double pos_x, double pos_y);
         Vertex(std::string name, double pos_x, double pos_y, std::vector<E> *edges);
         Vertex(int id, std::string name, double pos_x, double pos_y, std::vector<E> *edges);
+        ~Vertex();
         double get_pos_x();
         double get_pos_y();
         std::string get_name();
