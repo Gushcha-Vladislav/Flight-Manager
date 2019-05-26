@@ -79,7 +79,7 @@ class Vertex{
             return this->id;
         }
 
-        std::vector<Edge,GraphLib::AllocImpl<Edge>> get_edges(){
+        std::vector<Edge,GraphLib::AllocImpl<Edge>>* get_edges(){
             return this->edges;
         }
 

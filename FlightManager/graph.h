@@ -58,7 +58,7 @@ class Graph {
                     iter->delete_edge(edge_id);
             }
         }
-        std::vector<V<E>>* getVertices(){
+        std::vector<V<E>,GraphLib::AllocImpl<V<E>>>* getVertices(){
             return this->vertices;
         }
 
