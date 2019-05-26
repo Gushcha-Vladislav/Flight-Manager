@@ -15,9 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
     graph->~Graph();
 
     ui->setupUi(this);
-}
-
+};
 MainWindow::~MainWindow()
 {
     delete ui;
-}
+};
