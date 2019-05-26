@@ -64,19 +64,21 @@ Graph::~Graph(){
 }
 
 void Graph::test(){
-    Vertex *vert = new Vertex("A",1.2,2.4);
+    Vertex *vert0 = new Vertex("A",1.2,2.4);
     Vertex *vert1 = new Vertex("B",1.3,2.24);
-    Edge *q = new Edge(1,5);
-    Edge *q1 = new Edge(2,3);
-    vert->add_edge(*q);
-    this->add_vertex(*vert);
-    vert->add_edge(*q1);
-    this->add_vertex(*vert);
-    this->add_edge(0,*q1);
-    this->delete_edge(0,1);
-    //graph->add_edge(0);
-    this->delete_vertex(0);
-    //graph->delete_vertex(0);
+    Vertex *vert2 = new Vertex("С",1.3,2.24);
+    Edge *e01 = new Edge(1,5);
+    Edge *e10 = new Edge(0,3);
+    vert0->add_edge(*e01);
+    vert1->add_edge(*e10);
+    this->add_vertex(*vert0);
+    this->add_vertex(*vert1);
+    this->add_vertex(*vert2);
+
+    qDebug() << vert1->get_edges()->at(0).get_id();
+    std::string res = this->find_way(1,2);
+    qDebug() << "PPPPPPPP";
+    qDebug() << res.data();
 }
 
 //template <template <class E> class V, class E>
@@ -109,11 +111,19 @@ std::string Graph::find_way(int from_id, int to_id)
     for(auto vert = vertexes->begin();vert!=vertexes->end();++vert) {
         if ((begin_vert_index != 0) && (end_vert_index != 0)) break;
 
-        if (vert->get_id() == from_id) begin_vert_index = std::distance(vertexes->begin(), vert);
-        if (vert->get_id() == to_id) end_vert_index = std::distance(vertexes->begin(), vert);
+        if (vert->get_id() == from_id) {
+            begin_vert_index = std::distance(vertexes->begin(), vert);
+        }
+        if (vert->get_id() == to_id) {
+            end_vert_index = std::distance(vertexes->begin(), vert);
+        }
     }
 
-    std::swap(vertexes->at(0), vertexes->at(begin_vert_index));
+    if (end_vert_index == 0) {
+        std::swap(vertexes->at(0), vertexes->at(begin_vert_index));
+        end_vert_index = begin_vert_index;
+    }
+
     std::swap(vertexes->at(SIZE - 1), vertexes->at(end_vert_index));
 
     // Инициализация матрицы связей
@@ -195,6 +205,8 @@ std::string Graph::find_way(int from_id, int to_id)
               k++;
             }
           }
+
+        if (end == SIZE - 1) return "No ways";
       }
       std::string fullWay = way->at(way->size() - 1);
 

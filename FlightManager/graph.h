@@ -14,9 +14,9 @@ class Graph {
         Graph* add_vertex(Vertex vertex);
         ~Graph();
         void delete_vertex(int vertex_id);
-        Vertex add_edge(int id, Edge edge);
-        void delete_edge(int id, int edge_id);
-        void drow();
+        Vertex add_edge(int vertex_id, Edge edge);
+        void delete_edge(int vertex_id, int edge_id);
+        void draw();
         std::string find_way(int from_id, int to_id);
         void serilization();
         void deserilization();
