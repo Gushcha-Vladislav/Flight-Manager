@@ -13,7 +13,12 @@ int main(int argc, char *argv[])
 //    return a.exec();
 
     Graph<Vertex,Edge> *graph = new Graph<Vertex,Edge>();
-    Serializer::Serialize<Graph<Vertex,Edge>> *seria = new Serializer::Serialize<Graph<Vertex,Edge>>(graph);
-    seria->exportToJson(graph);
+
+    Serializer::Serialize<Graph<Vertex,Edge>>& serializer = Serializer::Serialize<Graph<Vertex,Edge>>::instance();
+    serializer.importFromJson(graph);
+    serializer.exportToJson(graph);
+
+//    Serializer::Serialize<Graph<Vertex,Edge>> *seria = new Serializer::Serialize<Graph<Vertex,Edge>>(graph);
+//    seria->exportToJson(graph);
     return 0;
 }
