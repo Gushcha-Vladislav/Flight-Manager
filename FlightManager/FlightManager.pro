@@ -29,11 +29,6 @@ SOURCES += \
         graph.cpp \
         main.cpp \
         mainwindow.cpp \
-<<<<<<< HEAD
-        vertex.cpp
-=======
-        serialize.cpp
->>>>>>> 4873900d588d668316a4b29a4b04f4dedcc6df29
 
 HEADERS += \
         edge.h \

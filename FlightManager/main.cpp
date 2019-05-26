@@ -2,6 +2,7 @@
 #include <QApplication>
 #include "graph.h"
 #include <QDebug>
+#include "serialize.h"
 
 int main(int argc, char *argv[])
 {
@@ -11,7 +12,7 @@ int main(int argc, char *argv[])
 
 //    return a.exec();
 
-    Edge *e35 = new Edge(5,8);
+    /*Edge *e35 = new Edge(5,8);
     Edge *e36 = new Edge(6,5);
 
     std::vector<Edge> *edges3 = new std::vector<Edge>();
@@ -59,6 +60,10 @@ int main(int argc, char *argv[])
     Iterator<Vertex<Edge>>* it = g->begin();
     qDebug() << it->get_value().get_id();
     it->next();
-    qDebug() << it->get_value().get_id();
+    qDebug() << it->get_value().get_id();*/
+    /*qDebug()<<"hello"<<endl;
+    Graph<Vertex,Edge> *graph = new Graph<Vertex,Edge>();
+    graph->~Graph();
+    Serializer::Serialize<Graph<Vertex,Edge>> *seria = new Serializer::Serialize<Graph<Vertex,Edge>>(*graph);*/
     return 0;
 }
