@@ -74,9 +74,9 @@ class Vertex{
             return this->edges;
         }
 
-        E add_edge(E *edge){
+        E* add_edge(E *edge){
             this->edges->push_back(*edge);
-            return this->edges->at(edges->size()-1);
+            return &this->edges->at(edges->size()-1);
         }
 
         void delete_edge(int edge_id){

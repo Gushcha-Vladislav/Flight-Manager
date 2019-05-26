@@ -37,7 +37,7 @@ class Graph {
             }
         }
 
-        E add_edge(int vertex_id, E *edge){
+        E *add_edge(int vertex_id, E *edge){
             if (vertex_id!=edge->get_to_id()){
                 for(auto iter = this->vertices->begin();iter!=this->vertices->end(); ++iter)
                 {
@@ -46,6 +46,7 @@ class Graph {
                     }
                 }
             }
+            else return nullptr;
 
         }
 
