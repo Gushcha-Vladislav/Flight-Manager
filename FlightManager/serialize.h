@@ -6,17 +6,18 @@
 
 namespace Serializer
 {
+template <template <class> class V, class E>
 class Serialize
 {
 public:
-    void exportToJson(Graph graph);
+    void exportToJson(Graph<V,E> graph);
     void importFromJson();
-    std::vector<Edge> getEdges;
-    std::vector<Vertex> getVertex;
+    std::vector<E> getEdges;
+    std::vector<V<E>> getVertex;
 private:
     Serialize();
-    std::vector<Edge> edges;
-    std::vector<Vertex> vertex;
+    std::vector<E> edges;
+    std::vector<V<E>> vertex;
 };
 }
 #endif // SERIALIZE_H

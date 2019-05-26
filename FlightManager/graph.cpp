@@ -1,20 +1,20 @@
 #include <graph.h>
 #include <QDebug>
 
-//template <template <class E> class V, class E>
-Graph::Graph()
+template <template <class E> class V, class E>
+Graph<V,E>::Graph()
 {
-    this->vertices = new std::vector<Vertex>;
+    this->vertices = new std::vector<V<E>>;
 }
 
-//template <template <class E> class V, class E>
-Graph::Graph(std::vector<Vertex> *vertices)
+template <template <class E> class V, class E>
+Graph<V,E>::Graph(std::vector<V<E>> *vertices)
 {
     this->vertices = vertices;
 }
 
-//template <template <class E> class V, class E>
-Graph * Graph::add_vertex(Vertex vertex)
+template <template <class E> class V, class E>
+Graph<V,E> * Graph<V,E>::add_vertex(V<E> vertex)
 {
     for(auto iter = this->vertices->begin();iter!=this->vertices->end(); ++iter)
     {
@@ -26,8 +26,8 @@ Graph * Graph::add_vertex(Vertex vertex)
     return this;
 }
 
-//template <template <class E> class V, class E>
-void Graph::delete_vertex(int vertex_id)
+template <template <class E> class V, class E>
+void Graph<V,E>::delete_vertex(int vertex_id)
 {
     for(auto iter = this->vertices->begin();iter!=this->vertices->end(); ++iter)
     {
@@ -37,8 +37,8 @@ void Graph::delete_vertex(int vertex_id)
     }
 }
 
-//template <template <class E> class V, class E>
-Vertex Graph::add_edge(int id, Edge edge)
+template <template <class E> class V, class E>
+V<E> Graph<V,E>::add_edge(int id, E edge)
 {
     for(auto iter = this->vertices->begin();iter!=this->vertices->end(); ++iter)
     {
@@ -47,8 +47,8 @@ Vertex Graph::add_edge(int id, Edge edge)
     }
 }
 
-//template <template <class E> class V, class E>
-void Graph::delete_edge(int vertex_id, int edge_id)
+template <template <class E> class V, class E>
+void Graph<V,E>::delete_edge(int vertex_id, int edge_id)
 {
     for(auto iter = this->vertices->begin();iter!=this->vertices->end(); ++iter)
     {
@@ -57,18 +57,19 @@ void Graph::delete_edge(int vertex_id, int edge_id)
     }
 }
 
-//template <template <class E> class V, class E>
-Graph::~Graph(){
+template <template <class E> class V, class E>
+Graph<V,E>::~Graph(){
     this->vertices->clear();
     delete this->vertices;
 }
 
-void Graph::test(){
-    Vertex *vert0 = new Vertex("A",1.2,2.4);
-    Vertex *vert1 = new Vertex("B",1.3,2.24);
-    Vertex *vert2 = new Vertex("С",1.3,2.24);
-    Edge *e01 = new Edge(1,5);
-    Edge *e10 = new Edge(0,3);
+template <template <class E> class V, class E>
+void Graph<V,E>::test(){
+    V<E> *vert0 = new V<E>("A",1.2,2.4);
+    V<E> *vert1 = new V<E>("B",1.3,2.24);
+    V<E> *vert2 = new V<E>("С",1.3,2.24);
+    E *e01 = new E(1,5);
+    E *e10 = new E(0,3);
     vert0->add_edge(*e01);
     vert1->add_edge(*e10);
     this->add_vertex(*vert0);
@@ -77,12 +78,11 @@ void Graph::test(){
 
     qDebug() << vert1->get_edges()->at(0).get_id();
     std::string res = this->find_way(1,2);
-    qDebug() << "PPPPPPPP";
     qDebug() << res.data();
 }
 
-//template <template <class E> class V, class E>
-std::string Graph::find_way(int from_id, int to_id)
+template <template <class E> class V, class E>
+std::string Graph<V,E>::find_way(int from_id, int to_id)
 {
 
 //   Debug version with test data
@@ -95,7 +95,7 @@ std::string Graph::find_way(int from_id, int to_id)
 //   }
 
    // Release version
-   std::vector<Vertex>* vertexes = this->vertices;
+   std::vector<V<E>>* vertexes = this->vertices;
 
     int MAX_INT = 100000;
     int SIZE = vertexes->size();
@@ -136,7 +136,7 @@ std::string Graph::find_way(int from_id, int to_id)
               a[i][j] = 0;
               continue;
           }
-          std::vector<Edge>* edges = vertexes->at(i).get_edges();
+          std::vector<E>* edges = vertexes->at(i).get_edges();
           int to_vert_id = vertexes->at(j).get_id();
 
           for(auto edge = edges->begin();edge!=edges->end();++edge) {
