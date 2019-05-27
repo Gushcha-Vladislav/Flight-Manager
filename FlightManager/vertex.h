@@ -18,7 +18,7 @@ class Vertex{
 
      public:
         Vertex(std::string name, double pos_x, double pos_y){
-            this->id = CURRENT_ID++;
+            this->id = ++CURRENT_ID;
             this->name = name;
             this->pos_x = pos_x;
             this->pos_y = pos_y;

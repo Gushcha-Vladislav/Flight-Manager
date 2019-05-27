@@ -15,6 +15,12 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    Graph<Vertex,Edge> *graph;
+
+private slots:
+    void on_vertexAddPushButton_clicked();
+
+    void on_addEdgePushButton_clicked();
 
 private:
     Ui::MainWindow *ui;
