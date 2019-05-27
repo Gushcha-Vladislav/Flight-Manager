@@ -34,12 +34,12 @@ MainWindow::~MainWindow()
 void MainWindow::on_vertexAddPushButton_clicked()
 {
     QString vertexName = ui->VertexNameLine->text();
-    graph->add_vertex(new Vertex<Edge>(vertexName.toStdString(),1.1,2.2));
+    graph->add_vertex(new Vertex<Edge>(vertexName.toStdString(),1.1,2.2));//нужен конструктор без координат или что-то подобное
     ui->vertexFrom->addItem(ui->VertexNameLine->text());
     ui->vertexTo->addItem(ui->VertexNameLine->text());
 }
 
-void MainWindow::on_addEdgePushButton_clicked()
+void MainWindow::on_addEdgePushButton_clicked()//где-то здесь косяк
 {
     int from_id, to_id;
     for(auto iter = graph->getVertices()->begin();iter!=graph->getVertices()->end(); ++iter)
