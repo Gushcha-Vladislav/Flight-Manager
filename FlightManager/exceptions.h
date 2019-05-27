@@ -23,13 +23,6 @@ public:
     FileException(std::string file_name): Exception("Cannot open file:" + file_name) {}
 };
 
-class SimilarVertexException: public Exception {
-private:
-   std::string vertex;
-public:
-    SimilarVertexException(std::string vertex): Exception("Similar Vertices:" + vertex) {}
-};
-
 class EdgeLoopException: public Exception {
 private:
    std::string edge_id;
