@@ -68,7 +68,7 @@ void Serializer::Serialize<T>::exportToJson(T* graph){
 
     QJsonDocument json_doc(json);
     QString json_string = json_doc.toJson();
-    QString path = "../FlightManager/graph.json";
+    QString path = ":/graph.json";
     QFile save_file(path);
     if (save_file.exists())
         save_file.remove();
@@ -81,7 +81,7 @@ void Serializer::Serialize<T>::exportToJson(T* graph){
 
 template <class T>
 void Serializer::Serialize<T>::importFromJson(T* graph){
-    QString path = "../FlightManager/graph.json";
+    QString path = ":/graph.json";
     QFile file(path);
     if (!file.open(QIODevice::ReadOnly)) {
         throw FileException(path.toStdString());

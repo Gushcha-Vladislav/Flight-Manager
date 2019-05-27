@@ -5,6 +5,7 @@
 #include <iterator.h>
 #include <iostream>
 #include "exceptions.h"
+#include <QGraphicsScene>
 
 template< template<class E> class V, class E>
 class Graph {
@@ -67,9 +68,7 @@ class Graph {
             return this->vertices;
         }
 
-        void drow(){
-
-        }
+        QGraphicsScene* draw();
         std::string find_way(int from_id, int to_id);
 
         typedef Iterator<V<E>>* iterator;
@@ -82,6 +81,7 @@ class Graph {
         }
     private:
 };
+
 
 #include <graph.cpp>
 #endif // GRAPH_H

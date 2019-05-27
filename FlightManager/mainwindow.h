@@ -19,7 +19,6 @@ public:
 
 private slots:
     void on_vertexAddPushButton_clicked();
-
     void on_addEdgePushButton_clicked();
 
 private:

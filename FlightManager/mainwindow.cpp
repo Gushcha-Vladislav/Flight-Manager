@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     serializer.importFromJson(graph);
 
     ui->setupUi(this);
+    ui->graphicsView->setScene(graph->draw());
 
     for(auto iter = graph->getVertices()->begin();iter!=graph->getVertices()->end(); ++iter)
     {
@@ -53,3 +54,4 @@ void MainWindow::on_addEdgePushButton_clicked()//где-то здесь кося
     }
     graph->add_edge(from_id,new Edge(to_id,ui->flyTimeBox->text().toInt()));
 }
+

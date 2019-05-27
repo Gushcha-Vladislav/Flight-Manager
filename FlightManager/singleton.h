@@ -17,7 +17,7 @@ class Singleton {
     virtual ~Singleton() { }
 
   private:
-    inline static T * m_instance = nullptr;
+    static T * m_instance;
 
     class MemGuard {
       public:

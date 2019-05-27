@@ -45,16 +45,6 @@
      <attribute name="title">
       <string>Tab 2</string>
      </attribute>
-     <widget class="QOpenGLWidget" name="openGLWidget_2">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>871</width>
-        <height>571</height>
-       </rect>
-      </property>
-     </widget>
      <widget class="QWidget" name="widget" native="true">
       <property name="geometry">
        <rect>
@@ -503,6 +493,16 @@
         <string>Delete</string>
        </property>
       </widget>
+     </widget>
+     <widget class="QGraphicsView" name="graphicsView">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>881</width>
+        <height>581</height>
+       </rect>
+      </property>
      </widget>
     </widget>
    </widget>

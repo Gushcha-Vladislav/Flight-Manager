@@ -1,5 +1,34 @@
 #include <graph.h>
 #include <QDebug>
+#include <QWidget>
+#include <QGraphicsEllipseItem>
+#include <QtMath>
+
+template< template<class E> class V, class E>
+QGraphicsScene* Graph<V,E>::draw(){
+    QGraphicsScene *scene = new QGraphicsScene;
+    auto pointer = new QPainterPath();
+    QFont font;
+    font.setPixelSize(25);
+    const int R = 260;
+    const int DIAM = 40;
+    double angle = 0;
+    for (auto it = this->vertices->begin(); it != this->vertices->end(); ++it){
+        double x = R*sin(angle);
+        double y = R*cos(angle);
+        auto circle = new QGraphicsEllipseItem(x, y, DIAM,DIAM);
+        angle+=2*M_PI/this->vertices->size();
+        circle->setFlag(QGraphicsItem::ItemClipsChildrenToShape, true);
+        circle->setBrush(Qt::green);
+        scene->addItem(circle);
+        pointer->addText(x-DIAM,y+2*DIAM, font, QString::fromUtf8(it->get_name().c_str()));
+    }
+
+//    pointer->moveTo(-260,-260);
+//    pointer->cubicTo(10,10, 100,100,260,260);
+    scene->addPath(*pointer);
+    return scene;
+}
 
 template< template<class E> class V, class E>
 std::string Graph<V,E>::find_way(int from_id, int to_id)

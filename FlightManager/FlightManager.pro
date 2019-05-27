@@ -28,7 +28,7 @@ SOURCES += \
         edge.cpp \
         graph.cpp \
         main.cpp \
-        mainwindow.cpp \
+        mainwindow.cpp
 
 HEADERS += \
         allocimpl.h \
@@ -48,6 +48,9 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    graph.json
 
 DISTFILES += \
     graph.json
