@@ -5,6 +5,7 @@
 #include "edge.h"
 #include "singleton.h"
 #include "exceptions.h"
+#include "manipulator.h"
 
 #include <QJsonObject>
 #include <QJsonArray>
@@ -21,6 +22,8 @@ class Serialize : public Singleton<Serialize<T>>
 {
 private:
     Serialize();
+    Manipulator* manipulator;
+
 public:
     void exportToJson(T* graph);
     void importFromJson(T* graph);
@@ -37,7 +40,9 @@ public:
 }
 
 template <class T>
-Serializer::Serialize<T>::Serialize(){}
+Serializer::Serialize<T>::Serialize(){
+    manipulator = new Manipulator();
+}
 
 template <class T>
 void Serializer::Serialize<T>::exportToJson(T* graph){
@@ -66,30 +71,14 @@ void Serializer::Serialize<T>::exportToJson(T* graph){
     }
     json["vertices"] = jVertices;
 
-    QJsonDocument json_doc(json);
-    QString json_string = json_doc.toJson();
-    QString path = "../FlightManager/graph.json";
-    QFile save_file(path);
-    if (save_file.exists())
-        save_file.remove();
-    if (!save_file.open(QIODevice::WriteOnly)) {
-        throw FileException(path.toStdString());
-    }
-    save_file.write(json_string.toLocal8Bit());
-    save_file.close();
+    manipulator->write(json);
 }
 
 template <class T>
 void Serializer::Serialize<T>::importFromJson(T* graph){
-    QString path = "../FlightManager/graph.json";
-    QFile file(path);
-    if (!file.open(QIODevice::ReadOnly)) {
-        throw FileException(path.toStdString());
-    }
-    QByteArray rawData = file.readAll();
-    file.close();
-    QJsonDocument doc(QJsonDocument::fromJson(rawData));
-    QJsonObject json = doc.object();
+
+    QJsonObject json = manipulator->read();
+
     QJsonArray jVertices = json["vertices"].toArray();
     QJsonArray jEdges;
     for(auto iter = jVertices.begin();iter!=jVertices.end(); ++iter)
