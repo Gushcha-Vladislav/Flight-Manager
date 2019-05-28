@@ -12,6 +12,7 @@
 #include <QJsonValue>
 #include <QFile>
 #include <QDebug>
+#include <QDir>
 
 
 namespace Serializer
@@ -68,7 +69,12 @@ void Serializer::Serialize<T>::exportToJson(T* graph){
 
     QJsonDocument json_doc(json);
     QString json_string = json_doc.toJson();
-    QString path = "../FlightManager/graph.json";
+    QString path;
+    #if (defined (_WIN32) || defined (_WIN64))
+        path = "../FlightManager/graph.json";
+    #elif (defined (Q_OS_MAC) || defined (Q_OS_OSX) || defined (Q_OS_MACX))
+        path = "../../../../FlightManager/graph.json";
+    #endif
     QFile save_file(path);
     if (save_file.exists())
         save_file.remove();
@@ -81,7 +87,12 @@ void Serializer::Serialize<T>::exportToJson(T* graph){
 
 template <class T>
 void Serializer::Serialize<T>::importFromJson(T* graph){
-    QString path = "../FlightManager/graph.json";
+    QString path;
+    #if (defined (_WIN32) || defined (_WIN64))
+        path = "../FlightManager/graph.json";
+    #elif (defined (Q_OS_MAC) || defined (Q_OS_OSX) || defined (Q_OS_MACX))
+        path = "../../../../FlightManager/graph.json";
+    #endif
     QFile file(path);
     if (!file.open(QIODevice::ReadOnly)) {
         throw FileException(path.toStdString());

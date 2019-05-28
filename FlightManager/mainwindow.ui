@@ -282,26 +282,10 @@
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_25">
         <item>
-         <widget class="QComboBox" name="comboBox_10">
-          <item>
-           <property name="text">
-            <string>test1</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>test2</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>test3</string>
-           </property>
-          </item>
-         </widget>
+         <widget class="QComboBox" name="deleteVertex"/>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_12">
+         <widget class="QPushButton" name="deleteVertexPushButton">
           <property name="maximumSize">
            <size>
             <width>81</width>
@@ -334,56 +318,6 @@
         <string>Delete route</string>
        </property>
       </widget>
-      <widget class="QWidget" name="horizontalLayoutWidget_20">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>410</y>
-         <width>311</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_26">
-        <item>
-         <widget class="QLabel" name="label_30">
-          <property name="maximumSize">
-           <size>
-            <width>51</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Impact</family>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>FLY TIME</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QComboBox" name="comboBox_15">
-          <item>
-           <property name="text">
-            <string>test1</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>test2</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>test3</string>
-           </property>
-          </item>
-         </widget>
-        </item>
-       </layout>
-      </widget>
       <widget class="QWidget" name="horizontalLayoutWidget_21">
        <property name="geometry">
         <rect>
@@ -395,10 +329,10 @@
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_27">
         <item>
-         <widget class="QLabel" name="label_31">
+         <widget class="QLabel" name="label_34">
           <property name="maximumSize">
            <size>
-            <width>51</width>
+            <width>61</width>
             <height>16777215</height>
            </size>
           </property>
@@ -409,28 +343,12 @@
            </font>
           </property>
           <property name="text">
-           <string>TO</string>
+           <string>ROUTE</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="comboBox_16">
-          <item>
-           <property name="text">
-            <string>test1</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>test2</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>test3</string>
-           </property>
-          </item>
-         </widget>
+         <widget class="QComboBox" name="edgeSelecter"/>
         </item>
        </layout>
       </widget>
@@ -445,10 +363,10 @@
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_28">
         <item>
-         <widget class="QLabel" name="label_32">
+         <widget class="QLabel" name="label_33">
           <property name="maximumSize">
            <size>
-            <width>51</width>
+            <width>61</width>
             <height>16777215</height>
            </size>
           </property>
@@ -459,36 +377,20 @@
            </font>
           </property>
           <property name="text">
-           <string>FROM</string>
+           <string>AIRPORT</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="comboBox_17">
-          <item>
-           <property name="text">
-            <string>test1</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>test2</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>test3</string>
-           </property>
-          </item>
-         </widget>
+         <widget class="QComboBox" name="vertexFromDel"/>
         </item>
        </layout>
       </widget>
-      <widget class="QPushButton" name="pushButton_13">
+      <widget class="QPushButton" name="deleteEdgePushButton">
        <property name="geometry">
         <rect>
          <x>230</x>
-         <y>440</y>
+         <y>410</y>
          <width>81</width>
          <height>23</height>
         </rect>

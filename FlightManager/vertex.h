@@ -25,14 +25,6 @@ class Vertex{
             this->edges = new std::vector<Edge,GraphLib::AllocImpl<Edge>>;
         }
 
-        /*Vertex(std::string name, double pos_x, double pos_y, std::vector<Edge,GraphLib::AllocImpl<Edge>>* edges){
-            this->id = CURRENT_ID++;
-            this->name = name;
-            this->pos_x = pos_x;
-            this->pos_y = pos_y;
-            this->edges = edges;
-        }*/
-
         Vertex(int id, std::string name, double pos_x, double pos_y){
             if (id > CURRENT_ID)    CURRENT_ID = id;
             this->id = id;
@@ -87,6 +79,9 @@ class Vertex{
                     this->edges->erase(iter);
                 break;
             }
+        }
+        bool delete_edge(std::string name, int id){
+
         }
 };
 

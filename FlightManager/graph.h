@@ -33,9 +33,10 @@ class Graph {
         void delete_vertex(int vertex_id){
             for(auto iter = this->vertices->begin();iter!=this->vertices->end(); ++iter)
             {
-                if(iter->get_id() == vertex_id)
+                if(iter->get_id() == vertex_id){
                     this->vertices->erase(iter);
-                break;
+                    break;
+                }
             }
         }
 
@@ -51,7 +52,6 @@ class Graph {
             }
             else {
                 throw EdgeLoopException(std::to_string(edge->get_id()));
-                //return false;
             }
 
         }
@@ -63,6 +63,27 @@ class Graph {
                     iter->delete_edge(edge_id);
             }
         }
+
+        V<E> *getVertex(int vertex_id){
+            int i = 0;
+            for(auto iter = this->vertices->begin();iter!=this->vertices->end(); ++iter,i++)
+            {
+                if(iter->get_id() == vertex_id){
+                    return &this->vertices->at(i);
+                }
+            }
+        }
+
+        V<E> *getVertex(std::string vertex_name){
+            int i = 0;
+            for(auto iter = this->vertices->begin();iter!=this->vertices->end(); ++iter,i++)
+            {
+                if(!iter->get_name().compare(vertex_name)){
+                    return &this->vertices->at(i);
+                }
+            }
+        }
+
         std::vector<V<E>,GraphLib::AllocImpl<V<E>>>* getVertices(){
             return this->vertices;
         }
