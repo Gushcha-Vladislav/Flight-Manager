@@ -5,16 +5,6 @@ template< template<class E> class V, class E>
 std::string GraphLib::Graph<V,E>::find_way(int from_id, int to_id)
 {
 
-//   Debug version with test data
-
-//   auto vertexes = initTestVertexes();
-
-//   for(auto vert = vertexes->begin();vert!=vertexes->end(); ++vert)
-//   {
-//       this->add_vertex(*vert);
-//   }
-
-   // Release version
    std::vector<V<E>,AllocatorLib::AllocImpl<V<E>>>* vertexes = this->vertices;
 
     int MAX_INT = 100000;
