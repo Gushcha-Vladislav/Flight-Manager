@@ -18,7 +18,8 @@ QJsonObject Manipulator::read() {
     if (!file.open(QIODevice::ReadOnly)) {
         throw FileException(pathToFile.toStdString());
     }
-    QByteArray rawData = QByteArray::fromBase64(file.readAll());
+   //QByteArray rawData = QByteArray::fromBase64(file.readAll());
+    QByteArray rawData = file.readAll();
     file.close();
     QJsonDocument doc(QJsonDocument::fromJson(rawData));
     return doc.object();
@@ -35,6 +36,7 @@ void Manipulator::write(QJsonObject json) {
         throw FileException(pathToFile.toStdString());
     }
 
-    save_file.write(json_string.toLocal8Bit().toBase64());
+//    save_file.write(json_string.toLocal8Bit().toBase64());
+    save_file.write(json_string.toLocal8Bit());
     save_file.close();
 }
