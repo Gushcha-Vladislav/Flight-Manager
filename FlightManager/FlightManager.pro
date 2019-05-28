@@ -29,6 +29,7 @@ SOURCES += \
         graph.cpp \
         main.cpp \
         mainwindow.cpp \
+        manipulator.cpp \
 
 HEADERS += \
         allocimpl.h \
@@ -37,6 +38,7 @@ HEADERS += \
         graph.h \
         iterator.h \
         mainwindow.h \
+        manipulator.h \
         serialize.h \
         singleton.h \
         vertex.h
@@ -50,4 +52,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
+    graph.json
+
+
+RESOURCES += \
     graph.json
