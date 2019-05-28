@@ -80,8 +80,14 @@ class Vertex{
                 break;
             }
         }
-        bool delete_edge(std::string name, int id){
-
+        bool delete_edge(int to_id, int fly_time){
+            for(auto iter = this->edges->begin();iter!=this->edges->end(); ++iter)
+            {
+                if((iter->get_to_id() == to_id) && (iter->get_fly_time == fly_time)){
+                    this->edges->erase(iter);
+                    return true;
+                }
+            }
         }
 };
 
