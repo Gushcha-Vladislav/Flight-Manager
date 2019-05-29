@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->deleteVertex->addItem(QString::fromStdString(iter->get_name()));
         ui->vertexFromDel->addItem(QString::fromStdString(iter->get_name()));
     }
+    ui->flyTimeBox->setMinimum(1);
     ui->flyTimeBox->setButtonSymbols( QAbstractSpinBox::NoButtons );
 
 };
@@ -41,19 +42,35 @@ void MainWindow::on_vertexAddPushButton_clicked()
     ui->vertexTo->addItem(ui->VertexNameLine->text());
     ui->deleteVertex->addItem(ui->VertexNameLine->text());
     ui->vertexFromDel->addItem(ui->VertexNameLine->text());
+    QMessageBox::information(0, "INFO", "Аэропорт добавлен!");
     ui->VertexNameLine->clear();
 }
 
-void MainWindow::on_addEdgePushButton_clicked()//где-то здесь косяк
+void MainWindow::on_addEdgePushButton_clicked()
 {
     int from_id=-1, to_id=-1;
+    QString tmpstr;
     from_id = graph->getVertex(ui->vertexFrom->currentText().toStdString())->get_id();
     to_id = graph->getVertex(ui->vertexTo->currentText().toStdString())->get_id();
     if((from_id==-1)||(to_id==-1)){
-        QMessageBox::information(0, "Ошибка", "Вершины не найдены!");
+        QMessageBox::information(0, "ERROR", "Аэропорт не найден!");
+    }
+    else if (from_id == to_id) {
+        QMessageBox::information(0, "ERROR", "Начальный и конечный аэропорт совпадают!");
     }
     else{
-        graph->add_edge(from_id,new Edge(to_id,ui->flyTimeBox->text().toInt()));
+        try {
+            graph->add_edge(from_id,new Edge(to_id,ui->flyTimeBox->text().toInt()));
+            tmpstr = "TO: " + QString::fromStdString(graph->getVertex(to_id)->get_name()) + ", fly time: " + ui->flyTimeBox->text();
+            ui->edgeSelecter->addItem(tmpstr);
+            vertexNameDel.push_back(graph->getVertex(to_id)->get_name());
+            flyTimeDel.push_back(ui->flyTimeBox->text().toInt());
+            QMessageBox::information(0, "INFO", "Рейс добавлен!");
+            ui->flyTimeBox->setValue(1);
+        } catch (EdgeLoopException e) {
+            std::cerr<<"Edge adding error"<<std::endl;
+        }
+
     }
 }
 
@@ -67,6 +84,7 @@ void MainWindow::on_deleteVertexPushButton_clicked()
             ui->vertexFromDel->removeItem(ui->deleteVertex->currentIndex());
             ui->deleteVertex->removeItem(ui->deleteVertex->currentIndex());
             graph->delete_vertex(iter->get_id());
+            QMessageBox::information(0, "INFO", "Аэропорт удалён!");
             break;
         }
     }
@@ -89,7 +107,21 @@ void MainWindow::on_vertexFromDel_currentIndexChanged(int index)
 
 void MainWindow::on_deleteEdgePushButton_clicked()
 {
-    qDebug()<<QString::fromStdString(vertexNameDel[ui->edgeSelecter->currentIndex()]);
-    qDebug()<<QString::number(flyTimeDel[ui->edgeSelecter->currentIndex()]);
-    graph->getVertex(ui->vertexFromDel->currentText().toStdString());
+//    qDebug()<<QString::fromStdString(vertexNameDel[ui->edgeSelecter->currentIndex()]);
+//    qDebug()<<QString::number(flyTimeDel[ui->edgeSelecter->currentIndex()]);
+//    for (int i = 0; i < vertexNameDel.size();i++) {
+//        qDebug()<<i<<" "<<QString::fromStdString(vertexNameDel[i])<<QString::number(flyTimeDel[i]);
+//    }
+    try {
+      graph->getVertex(ui->vertexFromDel->currentText().toStdString())->
+              delete_edge(graph->getVertex(vertexNameDel[ui->edgeSelecter->currentIndex()])->get_id(),
+              flyTimeDel[ui->edgeSelecter->currentIndex()]);
+      int i = ui->edgeSelecter->currentIndex();
+      vertexNameDel.erase(vertexNameDel.begin() + i);
+      flyTimeDel.erase(flyTimeDel.begin() + i);
+      ui->edgeSelecter->removeItem(ui->edgeSelecter->currentIndex());
+      QMessageBox::information(0, "INFO", "Рейс удалён!");
+    } catch (EdgeDeletingException e) {
+        std::cerr<<"Edge deleting error"<<std::endl;
+    }
 }

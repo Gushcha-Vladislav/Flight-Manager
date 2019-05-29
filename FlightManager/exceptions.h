@@ -30,4 +30,11 @@ public:
     EdgeLoopException(std::string edge_id): Exception("Loop at vertex. Edge id:" + edge_id) {}
 };
 
+class EdgeDeletingException: public Exception {
+private:
+   std::string edge_id;
+public:
+    EdgeDeletingException(std::string edge_id): Exception("Edge" + edge_id + "does not existing") {}
+};
+
 #endif // EXCEPTIONS_H

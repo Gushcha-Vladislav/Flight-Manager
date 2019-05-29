@@ -11,16 +11,6 @@
                     "fly_time": 11,
                     "id": 2,
                     "to_id": 5
-                },
-                {
-                    "fly_time": 0,
-                    "id": 3,
-                    "to_id": 2
-                },
-                {
-                    "fly_time": 99,
-                    "id": 13,
-                    "to_id": 4
                 }
             ],
             "id": 1,
