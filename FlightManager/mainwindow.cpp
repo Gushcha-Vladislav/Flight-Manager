@@ -9,9 +9,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    graph = new Graph<Vertex,Edge>();
+    graph = new GraphLib::Graph<Vertex,Edge>();
 
-    Serializer::Serialize<Graph<Vertex,Edge>>& serializer = Serializer::Serialize<Graph<Vertex,Edge>>::instance();
+    Serializer::Serialize<GraphLib::Graph<Vertex,Edge>>& serializer = Serializer::Serialize<GraphLib::Graph<Vertex,Edge>>::instance();
     serializer.importFromJson(graph);
 
     ui->setupUi(this);
@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
 };
 MainWindow::~MainWindow()
 {
-    Serializer::Serialize<Graph<Vertex,Edge>>& serializer = Serializer::Serialize<Graph<Vertex,Edge>>::instance();
+    Serializer::Serialize<GraphLib::Graph<Vertex,Edge>>& serializer = Serializer::Serialize<GraphLib::Graph<Vertex,Edge>>::instance();
     serializer.exportToJson(graph);
     delete ui;
 };

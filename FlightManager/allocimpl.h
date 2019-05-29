@@ -1,7 +1,7 @@
 #include <iostream>
 #include <limits>
 
-namespace GraphLib {
+namespace AllocatorLib {
    template <class T>
    class AllocImpl {
      public:

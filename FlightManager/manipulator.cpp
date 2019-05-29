@@ -4,7 +4,7 @@
 #include <qjsondocument.h>
 #include <qjsonobject.h>
 
-Manipulator::Manipulator() {
+ManipulatorLib::Manipulator::Manipulator() {
     #if (defined (_WIN32) || defined (_WIN64))
         pathToFile = "../FlightManager/graph.json";
     #elif (defined (Q_OS_MAC) || defined (Q_OS_OSX) || defined (Q_OS_MACX))
@@ -12,7 +12,7 @@ Manipulator::Manipulator() {
     #endif
 }
 
-QJsonObject Manipulator::read() {
+QJsonObject ManipulatorLib::Manipulator::read() {
 
     QFile file(pathToFile);
     if (!file.open(QIODevice::ReadOnly)) {
@@ -25,7 +25,7 @@ QJsonObject Manipulator::read() {
     return doc.object();
 }
 
-void Manipulator::write(QJsonObject json) {
+void ManipulatorLib::Manipulator::write(QJsonObject json) {
     QJsonDocument json_doc(json);
     QString json_string = json_doc.toJson();
 

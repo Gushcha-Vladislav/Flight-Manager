@@ -23,7 +23,7 @@ class Serialize : public Singleton<Serialize<T>>
 {
 private:
     Serialize();
-    Manipulator* manipulator;
+    ManipulatorLib::Manipulator* manipulator;
 
 public:
     void exportToJson(T* graph);
@@ -42,7 +42,7 @@ public:
 
 template <class T>
 Serializer::Serialize<T>::Serialize(){
-    manipulator = new Manipulator();
+    manipulator = new ManipulatorLib::Manipulator();
 }
 
 template <class T>

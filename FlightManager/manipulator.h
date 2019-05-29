@@ -3,16 +3,19 @@
 
 #include <qjsonobject.h>
 
-class Manipulator
-{
-private:
-    QString pathToFile;
+namespace ManipulatorLib {
+    class Manipulator
+    {
+    private:
+        QString pathToFile;
 
-public:
-    Manipulator();
+    public:
+        Manipulator();
 
-    QJsonObject read();
-    void write(QJsonObject obj);
-};
+        QJsonObject read();
+        void write(QJsonObject obj);
+    };
+}
+
 
 #endif // MANIPULATOR_H

@@ -15,7 +15,7 @@ class Vertex{
         std::string name;
         double pos_x;
         double pos_y;
-        std::vector<Edge,GraphLib::AllocImpl<Edge>> *edges;
+        std::vector<Edge,AllocatorLib::AllocImpl<Edge>> *edges;
 
      public:
         Vertex(std::string name, double pos_x, double pos_y){
@@ -23,7 +23,7 @@ class Vertex{
             this->name = name;
             this->pos_x = pos_x;
             this->pos_y = pos_y;
-            this->edges = new std::vector<Edge,GraphLib::AllocImpl<Edge>>;
+            this->edges = new std::vector<Edge,AllocatorLib::AllocImpl<Edge>>;
         }
 
         Vertex(int id, std::string name, double pos_x, double pos_y){
@@ -32,7 +32,7 @@ class Vertex{
             this->name = name;
             this->pos_x = pos_x;
             this->pos_y = pos_y;
-            this->edges = new std::vector<Edge,GraphLib::AllocImpl<Edge>>;
+            this->edges = new std::vector<Edge,AllocatorLib::AllocImpl<Edge>>;
         }
 
         bool operator==(const Vertex<E> & v){
@@ -64,7 +64,7 @@ class Vertex{
             return this->id;
         }
 
-        std::vector<Edge,GraphLib::AllocImpl<Edge>>* get_edges(){
+        std::vector<Edge,AllocatorLib::AllocImpl<Edge>>* get_edges(){
             return this->edges;
         }
 
