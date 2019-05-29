@@ -133,13 +133,13 @@ std::string GraphLib::Graph<V,E>::find_way(int from_id, int to_id)
 
         if (end == SIZE - 1) return "No ways";
       }
-      std::string fullWay = way->at(way->size() - 1).name+ "-> (" + std::to_string(way->at(way->size() - 1).fly_time) + ") -> " ;
+      std::string fullWay = "";
 
-      for(auto vert = way->rbegin() + 1;vert!=way->rend() - 1;vert++) {
+      for(auto vert = way->rbegin() ;vert!=way->rend() - 1;vert++) {
         fullWay = fullWay+ vert->name + "-> (" + std::to_string(vert->fly_time) + ") -> " ;
       }
 
-      fullWay = fullWay + way->at(0).name;
+      fullWay = fullWay + way->at(0).name + "\nFull way: " + std::to_string(fullWeight);
 
    return fullWay;
 }
