@@ -22,10 +22,12 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->vertexTo->addItem(QString::fromStdString(iter->get_name()));
         ui->deleteVertex->addItem(QString::fromStdString(iter->get_name()));
         ui->vertexFromDel->addItem(QString::fromStdString(iter->get_name()));
+        ui->fromFind->addItem(QString::fromStdString(iter->get_name()));
+        ui->toFind->addItem(QString::fromStdString(iter->get_name()));
     }
     ui->flyTimeBox->setMinimum(1);
     ui->flyTimeBox->setButtonSymbols( QAbstractSpinBox::NoButtons );
-
+    ui->wayLabel->setVisible(false);
 };
 MainWindow::~MainWindow()
 {
@@ -42,6 +44,8 @@ void MainWindow::on_vertexAddPushButton_clicked()
     ui->vertexTo->addItem(ui->VertexNameLine->text());
     ui->deleteVertex->addItem(ui->VertexNameLine->text());
     ui->vertexFromDel->addItem(ui->VertexNameLine->text());
+    ui->fromFind->addItem(ui->VertexNameLine->text());
+    ui->toFind->addItem(ui->VertexNameLine->text());
     QMessageBox::information(0, "INFO", "Аэропорт добавлен!");
     ui->VertexNameLine->clear();
 }
@@ -82,6 +86,8 @@ void MainWindow::on_deleteVertexPushButton_clicked()
             ui->vertexFrom->removeItem(ui->deleteVertex->currentIndex());
             ui->vertexTo->removeItem(ui->deleteVertex->currentIndex());
             ui->vertexFromDel->removeItem(ui->deleteVertex->currentIndex());
+            ui->fromFind->removeItem(ui->deleteVertex->currentIndex());
+            ui->toFind->removeItem(ui->deleteVertex->currentIndex());
             ui->deleteVertex->removeItem(ui->deleteVertex->currentIndex());
             graph->delete_vertex(iter->get_id());
             QMessageBox::information(0, "INFO", "Аэропорт удалён!");
@@ -107,11 +113,6 @@ void MainWindow::on_vertexFromDel_currentIndexChanged(int index)
 
 void MainWindow::on_deleteEdgePushButton_clicked()
 {
-//    qDebug()<<QString::fromStdString(vertexNameDel[ui->edgeSelecter->currentIndex()]);
-//    qDebug()<<QString::number(flyTimeDel[ui->edgeSelecter->currentIndex()]);
-//    for (int i = 0; i < vertexNameDel.size();i++) {
-//        qDebug()<<i<<" "<<QString::fromStdString(vertexNameDel[i])<<QString::number(flyTimeDel[i]);
-//    }
     try {
       graph->getVertex(ui->vertexFromDel->currentText().toStdString())->
               delete_edge(graph->getVertex(vertexNameDel[ui->edgeSelecter->currentIndex()])->get_id(),
@@ -124,4 +125,19 @@ void MainWindow::on_deleteEdgePushButton_clicked()
     } catch (EdgeDeletingException e) {
         std::cerr<<"Edge deleting error"<<std::endl;
     }
+}
+
+void MainWindow::on_findRoutePushButton_clicked()
+{
+    ui->wayLabel->clear();
+    if(!ui->fromFind->currentText().compare(ui->toFind->currentText())){
+        qDebug()<<"same vertex";
+        ui->wayLabel->setText("same vertex");
+    }
+    else {
+        std::string way = graph->find_way(graph->getVertex(ui->fromFind->currentText().toStdString())->get_id(),
+                        graph->getVertex(ui->toFind->currentText().toStdString())->get_id());
+        ui->wayLabel->setText(QString::fromStdString(way));
+    }
+    ui->wayLabel->setVisible(true);
 }

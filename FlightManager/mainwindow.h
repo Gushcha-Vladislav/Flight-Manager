@@ -29,6 +29,8 @@ private slots:
 
     void on_deleteEdgePushButton_clicked();
 
+    void on_findRoutePushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     std::vector<std::string> vertexNameDel;
