@@ -109,7 +109,6 @@ std::string GraphLib::Graph<V,E>::find_way(int from_id, int to_id)
       way->push_back(w); //начальный элемент - конечная вершина
       int k = 1; // индекс предыдущей вершины
       int weight = d[end];
-      qDebug() << "PPPP" << weight;
       int fullWeight = weight;// вес конечной вершины
 
       while (end > 0) // пока не дошли до начальной вершины
@@ -120,15 +119,13 @@ std::string GraphLib::Graph<V,E>::find_way(int from_id, int to_id)
           {
             int temp = weight - a[i][end]; // определяем вес пути из предыдущей вершины
             if (temp == d[i]) // если вес совпал с рассчитанным
-            {                 // значит из этой вершины и был переход
+            {
+              int kek = a[i][end];
               weight = temp; // сохраняем новый вес
               end = i;
               Way w;
-
-              qDebug() << "weght for " << QString::fromStdString(vertices->at(i).get_name()) << weight;
-
               w.name = vertices->at(i).get_name();
-              w.fly_time = fullWeight - weight;
+              w.fly_time = kek;
               way->push_back(w);// сохраняем предыдущую вершину
               k++;
             }
