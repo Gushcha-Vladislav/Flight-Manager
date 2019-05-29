@@ -91,6 +91,7 @@ class Vertex{
             }
             throw EdgeDeletingException(std::to_string(to_id));
         }
+
 };
 
 template <class E>

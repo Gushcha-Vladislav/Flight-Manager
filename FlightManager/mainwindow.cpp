@@ -90,6 +90,7 @@ void MainWindow::on_deleteVertexPushButton_clicked()
             ui->toFind->removeItem(ui->deleteVertex->currentIndex());
             ui->deleteVertex->removeItem(ui->deleteVertex->currentIndex());
             graph->delete_vertex(iter->get_id());
+            this->on_vertexFromDel_currentIndexChanged(1);
             QMessageBox::information(0, "INFO", "Аэропорт удалён!");
             break;
         }

@@ -34,6 +34,16 @@ namespace GraphLib {
             void delete_vertex(int vertex_id){
                 for(auto iter = this->vertices->begin();iter!=this->vertices->end(); ++iter)
                 {
+                    for(auto iterEdge = iter->get_edges()->begin();iterEdge!=iter->get_edges()->end(); ++iterEdge)
+                    {
+                        if(iterEdge->get_to_id() == vertex_id){
+                            iter->delete_edge(iterEdge->get_id());
+                        }
+                    }
+
+                }
+                for(auto iter = this->vertices->begin();iter!=this->vertices->end(); ++iter)
+                {
                     if(iter->get_id() == vertex_id){
                         this->vertices->erase(iter);
                         break;
