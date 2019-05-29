@@ -5,7 +5,7 @@
 #include <QtMath>
 
 template< template<class E> class V, class E>
-QGraphicsScene* Graph<V,E>::draw(){
+QGraphicsScene* GraphLib::Graph<V,E>::draw(){
     QGraphicsScene *scene = new QGraphicsScene;
     auto pointer = new QPainterPath();
     QFont font;
@@ -14,14 +14,14 @@ QGraphicsScene* Graph<V,E>::draw(){
     const int DIAM = 40;
     double angle = 0;
     for (auto it = this->vertices->begin(); it != this->vertices->end(); ++it){
-        double x = R*sin(angle);
-        double y = R*cos(angle);
-        auto circle = new QGraphicsEllipseItem(x, y, DIAM,DIAM);
+        it->set_pos_x(R*sin(angle));
+        it->set_pos_y(R*cos(angle));
+        auto circle = new QGraphicsEllipseItem(it->get_pos_x(), it->get_pos_y(), DIAM,DIAM);
         angle+=2*M_PI/this->vertices->size();
         circle->setFlag(QGraphicsItem::ItemClipsChildrenToShape, true);
         circle->setBrush(Qt::green);
         scene->addItem(circle);
-        pointer->addText(x-DIAM,y+2*DIAM, font, QString::fromUtf8(it->get_name().c_str()));
+        pointer->addText(it->get_pos_x()-DIAM,it->get_pos_y()+2*DIAM, font, QString::fromUtf8(it->get_name().c_str()));
     }
 
 //    pointer->moveTo(-260,-260);

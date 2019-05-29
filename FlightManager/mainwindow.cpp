@@ -43,6 +43,7 @@ void MainWindow::on_vertexAddPushButton_clicked()
     ui->vertexTo->addItem(ui->VertexNameLine->text());
     ui->deleteVertex->addItem(ui->VertexNameLine->text());
     ui->vertexFromDel->addItem(ui->VertexNameLine->text());
+    ui->graphicsView->setScene(graph->draw());
     QMessageBox::information(0, "INFO", "Аэропорт добавлен!");
     ui->VertexNameLine->clear();
 }
@@ -66,6 +67,7 @@ void MainWindow::on_addEdgePushButton_clicked()
             ui->edgeSelecter->addItem(tmpstr);
             vertexNameDel.push_back(graph->getVertex(to_id)->get_name());
             flyTimeDel.push_back(ui->flyTimeBox->text().toInt());
+            ui->graphicsView->setScene(graph->draw());
             QMessageBox::information(0, "INFO", "Рейс добавлен!");
             ui->flyTimeBox->setValue(1);
         } catch (EdgeLoopException e) {
@@ -85,6 +87,7 @@ void MainWindow::on_deleteVertexPushButton_clicked()
             ui->vertexFromDel->removeItem(ui->deleteVertex->currentIndex());
             ui->deleteVertex->removeItem(ui->deleteVertex->currentIndex());
             graph->delete_vertex(iter->get_id());
+            ui->graphicsView->setScene(graph->draw());
             QMessageBox::information(0, "INFO", "Аэропорт удалён!");
             break;
         }
@@ -121,6 +124,7 @@ void MainWindow::on_deleteEdgePushButton_clicked()
       vertexNameDel.erase(vertexNameDel.begin() + i);
       flyTimeDel.erase(flyTimeDel.begin() + i);
       ui->edgeSelecter->removeItem(ui->edgeSelecter->currentIndex());
+      ui->graphicsView->setScene(graph->draw());
       QMessageBox::information(0, "INFO", "Рейс удалён!");
     } catch (EdgeDeletingException e) {
         std::cerr<<"Edge deleting error"<<std::endl;

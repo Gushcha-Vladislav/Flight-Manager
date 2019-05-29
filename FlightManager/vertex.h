@@ -56,6 +56,14 @@ class Vertex{
             return this->pos_y;
         }
 
+        void set_pos_x(double x){
+            this->pos_x = x;
+        }
+
+        void set_pos_y(double y){
+            this->pos_y = y;
+        }
+
         std::string get_name(){
             return this->name;
         }
