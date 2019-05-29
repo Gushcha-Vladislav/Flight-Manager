@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <graph.h>
+#include <QMessageBox>
 
 namespace Ui {
 class MainWindow;
@@ -15,14 +16,22 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    Graph<Vertex,Edge> *graph;
+    GraphLib::Graph<Vertex,Edge> *graph;
 
 private slots:
     void on_vertexAddPushButton_clicked();
     void on_addEdgePushButton_clicked();
 
+    void on_deleteVertexPushButton_clicked();
+
+    void on_vertexFromDel_currentIndexChanged(int index);
+
+    void on_deleteEdgePushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
+    std::vector<std::string> vertexNameDel;
+    std::vector<int> flyTimeDel;
 };
 
 #endif // MAINWINDOW_H

@@ -3,7 +3,7 @@ int Edge::CURRENT_ID = 0;
 
 Edge::Edge(int to_id, int fly_time)
 {
-    this->id = CURRENT_ID++;
+    this->id = ++CURRENT_ID;
     this->to_id = to_id;
     this->fly_time = fly_time;
 };
@@ -11,7 +11,7 @@ Edge::Edge(int to_id, int fly_time)
 Edge::Edge(int id, int to_id, int fly_time)
 {
     if (id > CURRENT_ID)    CURRENT_ID = id;
-    this->id = CURRENT_ID;
+    this->id = id;
     this->to_id = to_id;
     this->fly_time = fly_time;
 };

@@ -28,7 +28,8 @@ SOURCES += \
         edge.cpp \
         graph.cpp \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        manipulator.cpp \
 
 HEADERS += \
         allocimpl.h \
@@ -37,6 +38,7 @@ HEADERS += \
         graph.h \
         iterator.h \
         mainwindow.h \
+        manipulator.h \
         serialize.h \
         singleton.h \
         vertex.h
@@ -49,8 +51,9 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-RESOURCES += \
+DISTFILES += \
     graph.json
 
-DISTFILES += \
+
+RESOURCES += \
     graph.json

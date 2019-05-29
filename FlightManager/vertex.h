@@ -5,6 +5,7 @@
 #include <vector>
 #include <edge.h>
 #include "allocimpl.h"
+#include "exceptions.h"
 
 template <class E>
 class Vertex{
@@ -14,7 +15,7 @@ class Vertex{
         std::string name;
         double pos_x;
         double pos_y;
-        std::vector<Edge,GraphLib::AllocImpl<Edge>> *edges;
+        std::vector<Edge,AllocatorLib::AllocImpl<Edge>> *edges;
 
      public:
         Vertex(std::string name, double pos_x, double pos_y){
@@ -22,16 +23,8 @@ class Vertex{
             this->name = name;
             this->pos_x = pos_x;
             this->pos_y = pos_y;
-            this->edges = new std::vector<Edge,GraphLib::AllocImpl<Edge>>;
+            this->edges = new std::vector<Edge,AllocatorLib::AllocImpl<Edge>>;
         }
-
-        /*Vertex(std::string name, double pos_x, double pos_y, std::vector<Edge,GraphLib::AllocImpl<Edge>>* edges){
-            this->id = CURRENT_ID++;
-            this->name = name;
-            this->pos_x = pos_x;
-            this->pos_y = pos_y;
-            this->edges = edges;
-        }*/
 
         Vertex(int id, std::string name, double pos_x, double pos_y){
             if (id > CURRENT_ID)    CURRENT_ID = id;
@@ -39,7 +32,7 @@ class Vertex{
             this->name = name;
             this->pos_x = pos_x;
             this->pos_y = pos_y;
-            this->edges = new std::vector<Edge,GraphLib::AllocImpl<Edge>>;
+            this->edges = new std::vector<Edge,AllocatorLib::AllocImpl<Edge>>;
         }
 
         bool operator==(const Vertex<E> & v){
@@ -71,7 +64,7 @@ class Vertex{
             return this->id;
         }
 
-        std::vector<Edge,GraphLib::AllocImpl<Edge>>* get_edges(){
+        std::vector<Edge,AllocatorLib::AllocImpl<Edge>>* get_edges(){
             return this->edges;
         }
 
@@ -87,6 +80,16 @@ class Vertex{
                     this->edges->erase(iter);
                 break;
             }
+        }
+        bool delete_edge(int to_id, int fly_time){
+            for(auto iter = this->edges->begin();iter!=this->edges->end(); ++iter)
+            {
+                if((iter->get_to_id() == to_id) && (iter->get_fly_time() == fly_time)){
+                    this->edges->erase(iter);
+                    return true;
+                }
+            }
+            throw EdgeDeletingException(std::to_string(to_id));
         }
 };
 
