@@ -78,15 +78,9 @@ QGraphicsScene* GraphLib::Graph<V,E>::draw(){
                 circle->setFlag(QGraphicsItem::ItemClipsChildrenToShape, true);
                 circle->setBrush(Qt::green);
                 scene->addItem(circle);
-            }else{
-                qDebug() <<"обосрался";
+                //            pointer->addText(it->get_pos_x()-DIAM,it->get_pos_y()+2*DIAM, font, QString::fromUtf8(it->get_name().c_str()));
             }
-
-
-
-//            pointer->addText(it->get_pos_x()-DIAM,it->get_pos_y()+2*DIAM, font, QString::fromUtf8(it->get_name().c_str()));
-        }
-    }
+        }}
 
     scene->addPath(*pointer);
     return scene;
@@ -101,7 +95,7 @@ template< template<class E> class V, class E>
 std::string GraphLib::Graph<V,E>::find_way(int from_id, int to_id)
 {
 
-   std::vector<V<E>,AllocatorLib::AllocImpl<V<E>>>* vertexes = this->vertices;
+    std::vector<V<E>,AllocatorLib::AllocImpl<V<E>>>* vertexes = this->vertices;
 
     int MAX_INT = 100000;
     int SIZE = vertices->size();
@@ -136,101 +130,101 @@ std::string GraphLib::Graph<V,E>::find_way(int from_id, int to_id)
     for (int i = 0; i<SIZE; i++)
     {
 
-      for (int j = 0; j<SIZE; j++) {
-          int temp_time = MAX_INT;
-          if (i == j) {
-              a[i][j] = 0;
-              continue;
-          }
-          std::vector<E,AllocatorLib::AllocImpl<E>>* edges = vertexes->at(i).get_edges();
-          int to_vert_id = vertexes->at(j).get_id();
+        for (int j = 0; j<SIZE; j++) {
+            int temp_time = MAX_INT;
+            if (i == j) {
+                a[i][j] = 0;
+                continue;
+            }
+            std::vector<E,AllocatorLib::AllocImpl<E>>* edges = vertexes->at(i).get_edges();
+            int to_vert_id = vertexes->at(j).get_id();
 
-          for(auto edge = edges->begin();edge!=edges->end();++edge) {
-              if (edge->get_to_id() == to_vert_id)
-                  if (edge->get_fly_time() < temp_time)
-                    temp_time = edge->get_fly_time();
-          }
-          a[i][j] = (temp_time == MAX_INT) ? 0 : temp_time;
-      }
+            for(auto edge = edges->begin();edge!=edges->end();++edge) {
+                if (edge->get_to_id() == to_vert_id)
+                    if (edge->get_fly_time() < temp_time)
+                        temp_time = edge->get_fly_time();
+            }
+            a[i][j] = (temp_time == MAX_INT) ? 0 : temp_time;
+        }
     }
 
     //Инициализация вершин и расстояний
-      for (int i = 0; i<SIZE; i++)
-      {
+    for (int i = 0; i<SIZE; i++)
+    {
         d[i] = MAX_INT;
         v[i] = 1;
-      }
-      d[0] = 0;
-      // Шаг алгоритма
-      do {
+    }
+    d[0] = 0;
+    // Шаг алгоритма
+    do {
         minindex = MAX_INT;
         min = MAX_INT;
         for (int i = 0; i<SIZE; i++)
         { // Если вершину ещё не обошли и вес меньше min
-          if ((v[i] == 1) && (d[i]<min))
-          { // Переприсваиваем значения
-            min = d[i];
-            minindex = i;
-          }
+            if ((v[i] == 1) && (d[i]<min))
+            { // Переприсваиваем значения
+                min = d[i];
+                minindex = i;
+            }
         }
         // Добавляем найденный минимальный вес
         // к текущему весу вершины
         // и сравниваем с текущим минимальным весом вершины
         if (minindex != MAX_INT)
         {
-          for (int i = 0; i<SIZE; i++)
-          {
-            if (a[minindex][i] > 0)
+            for (int i = 0; i<SIZE; i++)
             {
-              temp = min + a[minindex][i];
-              if (temp < d[i])
-              {
-                d[i] = temp;
-              }
+                if (a[minindex][i] > 0)
+                {
+                    temp = min + a[minindex][i];
+                    if (temp < d[i])
+                    {
+                        d[i] = temp;
+                    }
+                }
             }
-          }
-          v[minindex] = 0;
+            v[minindex] = 0;
         }
-      } while (minindex < MAX_INT);
-      // Восстановление пути
-      std::vector<Way,AllocatorLib::AllocImpl<Way>>* way = new std::vector<Way,AllocatorLib::AllocImpl<Way>>();
-      int end = SIZE - 1; // индекс конечной вершины = 5 - 1
-      Way w;
-      w.name = vertexes->at(end).get_name();
-      way->push_back(w); //начальный элемент - конечная вершина
-      int k = 1; // индекс предыдущей вершины
-      int weight = d[end];
-      int fullWeight = weight;// вес конечной вершины
+    } while (minindex < MAX_INT);
+    // Восстановление пути
+    std::vector<Way,AllocatorLib::AllocImpl<Way>>* way = new std::vector<Way,AllocatorLib::AllocImpl<Way>>();
+    int end = SIZE - 1; // индекс конечной вершины = 5 - 1
+    Way w;
+    w.name = vertexes->at(end).get_name();
+    way->push_back(w); //начальный элемент - конечная вершина
+    int k = 1; // индекс предыдущей вершины
+    int weight = d[end];
+    int fullWeight = weight;// вес конечной вершины
 
-      while (end > 0) // пока не дошли до начальной вершины
-      {
+    while (end > 0) // пока не дошли до начальной вершины
+    {
         for(int i=0; i<SIZE; i++) // просматриваем все вершины
 
-          if (a[i][end] != 0)   // если связь есть
-          {
-            int temp = weight - a[i][end]; // определяем вес пути из предыдущей вершины
-            if (temp == d[i]) // если вес совпал с рассчитанным
+            if (a[i][end] != 0)   // если связь есть
             {
-              int kek = a[i][end];
-              weight = temp; // сохраняем новый вес
-              end = i;
-              Way w;
-              w.name = vertices->at(i).get_name();
-              w.fly_time = kek;
-              way->push_back(w);// сохраняем предыдущую вершину
-              k++;
+                int temp = weight - a[i][end]; // определяем вес пути из предыдущей вершины
+                if (temp == d[i]) // если вес совпал с рассчитанным
+                {
+                    int kek = a[i][end];
+                    weight = temp; // сохраняем новый вес
+                    end = i;
+                    Way w;
+                    w.name = vertices->at(i).get_name();
+                    w.fly_time = kek;
+                    way->push_back(w);// сохраняем предыдущую вершину
+                    k++;
+                }
             }
-          }
 
         if (end == SIZE - 1) return "No ways";
-      }
-      std::string fullWay = "";
+    }
+    std::string fullWay = "";
 
-      for(auto vert = way->rbegin() ;vert!=way->rend() - 1;vert++) {
+    for(auto vert = way->rbegin() ;vert!=way->rend() - 1;vert++) {
         fullWay = fullWay+ vert->name + "-> (" + std::to_string(vert->fly_time) + ") -> " ;
-      }
+    }
 
-      fullWay = fullWay + way->at(0).name + "\nFull way: " + std::to_string(fullWeight);
+    fullWay = fullWay + way->at(0).name + "\nFull way: " + std::to_string(fullWeight);
 
-   return fullWay;
+    return fullWay;
 }
