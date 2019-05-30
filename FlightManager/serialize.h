@@ -6,6 +6,7 @@
 #include "singleton.h"
 #include "exceptions.h"
 #include "manipulator.h"
+#include <cmath>
 
 #include <QJsonObject>
 #include <QJsonArray>
@@ -55,8 +56,8 @@ void Serializer::Serialize<T>::exportToJson(T* graph){
         QJsonObject obj;
         obj["id"] = iter->get_id();
         obj["name"] = QString::fromStdString(iter->get_name());
-        obj["pos_x"] = iter->get_pos_x();
-        obj["pos_y"] = iter->get_pos_y();
+        obj["pos_x"] = std::trunc(iter->get_pos_x() * 100) / 100;
+        obj["pos_y"] = std::trunc(iter->get_pos_y() * 100) / 100;
         for(auto iterEdge = iter->get_edges()->begin();iterEdge!=iter->get_edges()->end(); ++iterEdge)
         {
             if(iter->get_id()!=iterEdge->get_to_id()){

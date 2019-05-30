@@ -39,14 +39,14 @@ MainWindow::~MainWindow()
 void MainWindow::on_vertexAddPushButton_clicked()
 {
     QString vertexName = ui->VertexNameLine->text();
-    graph->add_vertex(new Vertex<Edge>(vertexName.toStdString(),1.1,2.2));//нужен конструктор без координат или что-то подобное
+    graph->add_vertex(new Vertex<Edge>(vertexName.toStdString(),1.1,2.2));
     ui->vertexFrom->addItem(ui->VertexNameLine->text());
     ui->vertexTo->addItem(ui->VertexNameLine->text());
     ui->deleteVertex->addItem(ui->VertexNameLine->text());
     ui->vertexFromDel->addItem(ui->VertexNameLine->text());
     ui->fromFind->addItem(ui->VertexNameLine->text());
     ui->toFind->addItem(ui->VertexNameLine->text());
-    QMessageBox::information(0, "INFO", "Аэропорт добавлен!");
+    QMessageBox::information(0, "INFO", "Airport added!");
     ui->VertexNameLine->clear();
 }
 
@@ -57,10 +57,10 @@ void MainWindow::on_addEdgePushButton_clicked()
     from_id = graph->getVertex(ui->vertexFrom->currentText().toStdString())->get_id();
     to_id = graph->getVertex(ui->vertexTo->currentText().toStdString())->get_id();
     if((from_id==-1)||(to_id==-1)){
-        QMessageBox::information(0, "ERROR", "Аэропорт не найден!");
+        QMessageBox::information(0, "ERROR", "Airport not found!");
     }
     else if (from_id == to_id) {
-        QMessageBox::information(0, "ERROR", "Начальный и конечный аэропорт совпадают!");
+        QMessageBox::information(0, "ERROR", "Start and end airport match!");
     }
     else{
         try {
@@ -69,7 +69,7 @@ void MainWindow::on_addEdgePushButton_clicked()
             ui->edgeSelecter->addItem(tmpstr);
             vertexNameDel.push_back(graph->getVertex(to_id)->get_name());
             flyTimeDel.push_back(ui->flyTimeBox->text().toInt());
-            QMessageBox::information(0, "INFO", "Рейс добавлен!");
+            QMessageBox::information(0, "INFO", "Flight added!");
             ui->flyTimeBox->setValue(1);
         } catch (EdgeLoopException e) {
             std::cerr<<"Edge adding error"<<std::endl;
@@ -91,7 +91,7 @@ void MainWindow::on_deleteVertexPushButton_clicked()
             ui->deleteVertex->removeItem(ui->deleteVertex->currentIndex());
             graph->delete_vertex(iter->get_id());
             this->on_vertexFromDel_currentIndexChanged(1);
-            QMessageBox::information(0, "INFO", "Аэропорт удалён!");
+            QMessageBox::information(0, "INFO", "Airport removed!");
             break;
         }
     }
@@ -122,7 +122,7 @@ void MainWindow::on_deleteEdgePushButton_clicked()
       vertexNameDel.erase(vertexNameDel.begin() + i);
       flyTimeDel.erase(flyTimeDel.begin() + i);
       ui->edgeSelecter->removeItem(ui->edgeSelecter->currentIndex());
-      QMessageBox::information(0, "INFO", "Рейс удалён!");
+      QMessageBox::information(0, "INFO", "Flight deleted!");
     } catch (EdgeDeletingException e) {
         std::cerr<<"Edge deleting error"<<std::endl;
     }
@@ -132,8 +132,7 @@ void MainWindow::on_findRoutePushButton_clicked()
 {
     ui->wayLabel->clear();
     if(!ui->fromFind->currentText().compare(ui->toFind->currentText())){
-        qDebug()<<"same vertex";
-        ui->wayLabel->setText("same vertex");
+        ui->wayLabel->setText("The starting and ending airport is the same.\n Why do you need to fly?\n Take advantage of the legs.");
     }
     else {
         std::string way = graph->find_way(graph->getVertex(ui->fromFind->currentText().toStdString())->get_id(),
