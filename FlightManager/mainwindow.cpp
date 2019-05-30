@@ -39,17 +39,23 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_vertexAddPushButton_clicked()
 {
-    QString vertexName = ui->VertexNameLine->text();
-    graph->add_vertex(new Vertex<Edge>(vertexName.toStdString(),1.1,2.2));
-    ui->vertexFrom->addItem(ui->VertexNameLine->text());
-    ui->vertexTo->addItem(ui->VertexNameLine->text());
-    ui->deleteVertex->addItem(ui->VertexNameLine->text());
-    ui->vertexFromDel->addItem(ui->VertexNameLine->text());
-    ui->fromFind->addItem(ui->VertexNameLine->text());
-    ui->toFind->addItem(ui->VertexNameLine->text());
-    ui->graphicsView->setScene(graph->draw());
-    QMessageBox::information(0, "INFO", "Airport added!");
-    ui->VertexNameLine->clear();
+    if(graph->getVertex(ui->VertexNameLine->text().toStdString()) == nullptr){
+        QString vertexName = ui->VertexNameLine->text();
+        graph->add_vertex(new Vertex<Edge>(vertexName.toStdString(),1.1,2.2));
+        ui->vertexFrom->addItem(ui->VertexNameLine->text());
+        ui->vertexTo->addItem(ui->VertexNameLine->text());
+        ui->deleteVertex->addItem(ui->VertexNameLine->text());
+        ui->vertexFromDel->addItem(ui->VertexNameLine->text());
+        ui->fromFind->addItem(ui->VertexNameLine->text());
+        ui->toFind->addItem(ui->VertexNameLine->text());
+        ui->graphicsView->setScene(graph->draw());
+        QMessageBox::information(0, "INFO", "Airport added!");
+        ui->VertexNameLine->clear();
+    }
+    else {
+        QMessageBox::information(0, "INFO", "This airport has already been added!");
+        ui->VertexNameLine->clear();
+    }
 }
 
 void MainWindow::on_addEdgePushButton_clicked()
