@@ -92,6 +92,11 @@ QGraphicsScene* GraphLib::Graph<V,E>::draw(){
     return scene;
 }
 
+struct Way {
+    std::string name;
+    int fly_time;
+};
+
 template< template<class E> class V, class E>
 std::string GraphLib::Graph<V,E>::find_way(int from_id, int to_id)
 {
@@ -132,7 +137,7 @@ std::string GraphLib::Graph<V,E>::find_way(int from_id, int to_id)
     {
 
       for (int j = 0; j<SIZE; j++) {
-          int temp_time = 0;
+          int temp_time = MAX_INT;
           if (i == j) {
               a[i][j] = 0;
               continue;
@@ -141,9 +146,11 @@ std::string GraphLib::Graph<V,E>::find_way(int from_id, int to_id)
           int to_vert_id = vertexes->at(j).get_id();
 
           for(auto edge = edges->begin();edge!=edges->end();++edge) {
-              if (edge->get_to_id() == to_vert_id) temp_time = edge->get_fly_time();
+              if (edge->get_to_id() == to_vert_id)
+                  if (edge->get_fly_time() < temp_time)
+                    temp_time = edge->get_fly_time();
           }
-          a[i][j] = temp_time;
+          a[i][j] = (temp_time == MAX_INT) ? 0 : temp_time;
       }
     }
 
@@ -186,34 +193,44 @@ std::string GraphLib::Graph<V,E>::find_way(int from_id, int to_id)
         }
       } while (minindex < MAX_INT);
       // Восстановление пути
-      std::vector<std::string,AllocatorLib::AllocImpl<std::string>>* way = new std::vector<std::string,AllocatorLib::AllocImpl<std::string>>();
+      std::vector<Way,AllocatorLib::AllocImpl<Way>>* way = new std::vector<Way,AllocatorLib::AllocImpl<Way>>();
       int end = SIZE - 1; // индекс конечной вершины = 5 - 1
-      way->push_back(vertices->at(end).get_name()); // начальный элемент - конечная вершина
+      Way w;
+      w.name = vertexes->at(end).get_name();
+      way->push_back(w); //начальный элемент - конечная вершина
       int k = 1; // индекс предыдущей вершины
-      int weight = d[end]; // вес конечной вершины
+      int weight = d[end];
+      int fullWeight = weight;// вес конечной вершины
 
       while (end > 0) // пока не дошли до начальной вершины
       {
         for(int i=0; i<SIZE; i++) // просматриваем все вершины
+
           if (a[i][end] != 0)   // если связь есть
           {
             int temp = weight - a[i][end]; // определяем вес пути из предыдущей вершины
             if (temp == d[i]) // если вес совпал с рассчитанным
-            {                 // значит из этой вершины и был переход
+            {
+              int kek = a[i][end];
               weight = temp; // сохраняем новый вес
               end = i;
-              way->push_back(vertices->at(i).get_name());// сохраняем предыдущую вершину
+              Way w;
+              w.name = vertices->at(i).get_name();
+              w.fly_time = kek;
+              way->push_back(w);// сохраняем предыдущую вершину
               k++;
             }
           }
 
         if (end == SIZE - 1) return "No ways";
       }
-      std::string fullWay = way->at(way->size() - 1);
+      std::string fullWay = "";
 
-      for(auto vert = way->rbegin() + 1;vert!=way->rend();vert++) {
-        fullWay = fullWay + " -> " + vert->substr();
+      for(auto vert = way->rbegin() ;vert!=way->rend() - 1;vert++) {
+        fullWay = fullWay+ vert->name + "-> (" + std::to_string(vert->fly_time) + ") -> " ;
       }
+
+      fullWay = fullWay + way->at(0).name + "\nFull way: " + std::to_string(fullWeight);
 
    return fullWay;
 }
