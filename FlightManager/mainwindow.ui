@@ -36,7 +36,7 @@
         <x>70</x>
         <y>260</y>
         <width>561</width>
-        <height>31</height>
+        <height>40</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -116,14 +116,14 @@
      <widget class="QPushButton" name="findRoutePushButton">
       <property name="geometry">
        <rect>
-        <x>560</x>
+        <x>544</x>
         <y>300</y>
-        <width>75</width>
+        <width>91</width>
         <height>23</height>
        </rect>
       </property>
       <property name="text">
-       <string>Fing route</string>
+       <string>Find route</string>
       </property>
      </widget>
      <widget class="QLabel" name="wayLabel">
@@ -203,7 +203,7 @@
          <x>0</x>
          <y>50</y>
          <width>311</width>
-         <height>31</height>
+         <height>33</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -276,7 +276,7 @@
          <x>0</x>
          <y>120</y>
          <width>311</width>
-         <height>31</height>
+         <height>32</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_6">
@@ -310,7 +310,7 @@
          <x>0</x>
          <y>150</y>
          <width>311</width>
-         <height>31</height>
+         <height>32</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_7">
@@ -410,7 +410,7 @@
          <x>0</x>
          <y>270</y>
          <width>311</width>
-         <height>31</height>
+         <height>38</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_25">
@@ -457,7 +457,7 @@
          <x>10</x>
          <y>380</y>
          <width>311</width>
-         <height>31</height>
+         <height>32</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_27">
@@ -491,7 +491,7 @@
          <x>10</x>
          <y>350</y>
          <width>311</width>
-         <height>31</height>
+         <height>32</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_28">
@@ -558,7 +558,7 @@
      <x>0</x>
      <y>0</y>
      <width>1225</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
