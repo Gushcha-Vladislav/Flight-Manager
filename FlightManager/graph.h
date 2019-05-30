@@ -74,6 +74,7 @@ namespace GraphLib {
                         return &this->vertices->at(i);
                     }
                 }
+                return nullptr;
             }
 
             V<E> *getVertex(std::string vertex_name){
@@ -84,6 +85,7 @@ namespace GraphLib {
                         return &this->vertices->at(i);
                     }
                 }
+                return nullptr;
             }
 
             std::vector<V<E>,AllocatorLib::AllocImpl<V<E>>>* getVertices(){

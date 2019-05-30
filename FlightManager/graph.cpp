@@ -10,13 +10,15 @@ QGraphicsScene* GraphLib::Graph<V,E>::draw(){
     auto pointer = new QPainterPath();
     QFont font;
     font.setPixelSize(25);
-    const int R = 260;
-    const int DIAM = 40;
+    const int R = 240;
+    const int DIAM = 30;
     double angle = 0;
     for (auto it = this->vertices->begin(); it != this->vertices->end(); ++it){
         it->set_pos_x(R*sin(angle));
         it->set_pos_y(R*cos(angle));
-        auto circle = new QGraphicsEllipseItem(it->get_pos_x(), it->get_pos_y(), DIAM,DIAM);
+        it->set_wait_pos_x(23 * sin(angle+M_PI) + it->get_pos_x());
+        it->set_wait_pos_y(23 * cos(angle+M_PI) + it->get_pos_y());
+        auto circle = new QGraphicsEllipseItem(it->get_pos_x()-DIAM/2, it->get_pos_y()-DIAM/2, DIAM,DIAM);
         angle+=2*M_PI/this->vertices->size();
         circle->setFlag(QGraphicsItem::ItemClipsChildrenToShape, true);
         circle->setBrush(Qt::green);
@@ -24,8 +26,68 @@ QGraphicsScene* GraphLib::Graph<V,E>::draw(){
         pointer->addText(it->get_pos_x()-DIAM,it->get_pos_y()+2*DIAM, font, QString::fromUtf8(it->get_name().c_str()));
     }
 
-//    pointer->moveTo(-260,-260);
-//    pointer->cubicTo(10,10, 100,100,260,260);
+    for (auto it = this->vertices->begin(); it != this->vertices->end(); ++it){
+        int i = 1;
+        for (auto ed = it->get_edges()->begin(); ed != it->get_edges()->end(); ++ed, i++){
+            auto curr = getVertex(ed->get_to_id());
+            double x2,y2;
+            if(curr!=nullptr){
+                if(it->get_pos_y() < curr->get_pos_y() && abs(it->get_pos_y() - curr->get_pos_y())>1){
+                    if(abs(it->get_pos_x() - curr->get_pos_x())<=1){
+                        x2 = it->get_pos_x() + 20*i;
+                        y2 = it->get_pos_y() + (curr->get_pos_y() - it->get_pos_y())/2;
+
+                    }
+                    if(abs(it->get_pos_x() - curr->get_pos_x())>1 && it->get_pos_x() < curr->get_pos_x() ){
+                        x2 = it->get_pos_x() +(curr->get_pos_x() - it->get_pos_x())/2 + (curr->get_pos_y() - it->get_pos_y())/10*i;
+                        y2 = it->get_pos_y() +(curr->get_pos_y() - it->get_pos_y())/2 - (curr->get_pos_x() - it->get_pos_x())/10*i;
+                    }
+                    if(abs(it->get_pos_x() - curr->get_pos_x())>1 && it->get_pos_x() > curr->get_pos_x() ){
+                        x2 =it->get_pos_x() +(curr->get_pos_x() - it->get_pos_x())/2 + (curr->get_pos_y() - it->get_pos_y())/10*i;
+                        y2 = it->get_pos_y() +(curr->get_pos_y() - it->get_pos_y())/2+ (curr->get_pos_x() - it->get_pos_x())/10*i;
+                    }
+                }
+                if(it->get_pos_y() > curr->get_pos_y() && abs(it->get_pos_y() - curr->get_pos_y())>1){
+                    if(abs(it->get_pos_x() - curr->get_pos_x())<1){
+                        x2 = it->get_pos_x()- 20 * i;
+                        y2 = it->get_pos_y() + (curr->get_pos_y() - it->get_pos_y())/2;
+
+                    }
+                    if(abs(it->get_pos_x() - curr->get_pos_x())>1 && it->get_pos_x() < curr->get_pos_x() ){
+                        x2 =it->get_pos_x() +(curr->get_pos_x() - it->get_pos_x())/2 + (curr->get_pos_y() - it->get_pos_y())/10*i;
+                        y2 = it->get_pos_y() +(curr->get_pos_y() - it->get_pos_y())/2+ (curr->get_pos_x() - it->get_pos_x())/10*i;
+                    }
+                    if(abs(it->get_pos_x() - curr->get_pos_x())>1 && it->get_pos_x() > curr->get_pos_x() ){
+                        x2 =it->get_pos_x() +(curr->get_pos_x() - it->get_pos_x())/2 - (curr->get_pos_y() - it->get_pos_y())/10*i;
+                        y2 = it->get_pos_y() +(curr->get_pos_y() - it->get_pos_y())/2+ (curr->get_pos_x() - it->get_pos_x())/10*i;
+                    }
+                }
+                if(abs(it->get_pos_y() - curr->get_pos_y())<=1){
+                    if(it->get_pos_x() > curr->get_pos_x()){
+                        x2 = it->get_pos_x() - (it->get_pos_x() - curr->get_pos_x())/2;
+                        y2 = it->get_pos_y() + 20*i;
+
+                    }else{
+                        x2 = it->get_pos_x() + (curr->get_pos_x() - it->get_pos_x())/2;
+                        y2 = it->get_pos_y() + 20*i;
+                    }
+                }
+                pointer->moveTo(it->get_pos_x(),it->get_pos_y());
+                pointer->cubicTo(it->get_pos_x(),it->get_pos_y(),x2,y2,curr->get_wait_pos_x(),curr->get_wait_pos_y());
+                auto circle =  new QGraphicsEllipseItem(curr->get_wait_pos_x()-5, curr->get_wait_pos_y()-5, 10,10);
+                circle->setFlag(QGraphicsItem::ItemClipsChildrenToShape, true);
+                circle->setBrush(Qt::green);
+                scene->addItem(circle);
+            }else{
+                qDebug() <<"обосрался";
+            }
+
+
+
+//            pointer->addText(it->get_pos_x()-DIAM,it->get_pos_y()+2*DIAM, font, QString::fromUtf8(it->get_name().c_str()));
+        }
+    }
+
     scene->addPath(*pointer);
     return scene;
 }

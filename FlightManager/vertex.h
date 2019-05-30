@@ -15,6 +15,8 @@ class Vertex{
         std::string name;
         double pos_x;
         double pos_y;
+        double wait_pos_x;
+        double wait_pos_y;
         std::vector<Edge,AllocatorLib::AllocImpl<Edge>> *edges;
 
      public:
@@ -64,6 +66,21 @@ class Vertex{
             this->pos_y = y;
         }
 
+        double get_wait_pos_x(){
+            return this->wait_pos_x;
+        }
+
+        double get_wait_pos_y(){
+            return this->wait_pos_y;
+        }
+
+        void set_wait_pos_x(double x){
+            this->wait_pos_x = x;
+        }
+
+        void set_wait_pos_y(double y){
+            this->wait_pos_y = y;
+        }
         std::string get_name(){
             return this->name;
         }
