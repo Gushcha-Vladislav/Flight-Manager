@@ -56,4 +56,5 @@ DISTFILES += \
 
 
 RESOURCES += \
-    graph.json
+    graph.json \
+    resourse.qrc
