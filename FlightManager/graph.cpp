@@ -119,8 +119,8 @@ std::string GraphLib::Graph<V,E>::find_way(int from_id, int to_id)
         }
     }
 
+    std::swap(vertices->at(0), vertices->at(begin_vert_index));
     if (end_vert_index == 0) {
-        std::swap(vertices->at(0), vertices->at(begin_vert_index));
         end_vert_index = begin_vert_index;
     }
 

@@ -137,7 +137,7 @@ void MainWindow::on_findRoutePushButton_clicked()
 {
     ui->wayLabel->clear();
     if(!ui->fromFind->currentText().compare(ui->toFind->currentText())){
-        ui->wayLabel->setText("The starting and ending airport is the same.\n Why do you need to fly?\n Take advantage of the legs.");
+        ui->wayLabel->setText("The starting and ending airport are the same.\n Why do you need to fly?\n Take advantage of your legs.");
     }
     else {
         std::string way = graph->find_way(graph->getVertex(ui->fromFind->currentText().toStdString())->get_id(),
