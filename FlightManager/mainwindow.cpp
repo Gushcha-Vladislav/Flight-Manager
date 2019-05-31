@@ -4,6 +4,7 @@
 #include "vertex.h"
 #include "edge.h"
 #include "serialize.h"
+#include "invariant.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),

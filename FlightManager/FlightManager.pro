@@ -36,6 +36,7 @@ HEADERS += \
         edge.h \
         exceptions.h \
         graph.h \
+        invariant.h \
         iterator.h \
         mainwindow.h \
         manipulator.h \

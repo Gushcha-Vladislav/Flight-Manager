@@ -1,6 +1,14 @@
 #include <edge.h>
 int Edge::CURRENT_ID = 0;
 
+Edge::Edge(){}
+
+Edge::Edge(Edge *edge){
+    this->id = edge->get_id();
+    this->to_id = edge->get_to_id();
+    this->fly_time = edge->get_fly_time();
+}
+
 Edge::Edge(int to_id, int fly_time)
 {
     this->id = ++CURRENT_ID;

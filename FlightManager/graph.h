@@ -6,6 +6,7 @@
 #include <iostream>
 #include "exceptions.h"
 #include <QGraphicsScene>
+#include "invariant.h"
 
 namespace GraphLib {
     template< template<class E> class V, class E>
@@ -53,7 +54,7 @@ namespace GraphLib {
             }
 
             bool add_edge(int vertex_id, E *edge){
-                if (vertex_id!=edge->get_to_id()){
+                if (Invariant<Graph>::loopChecker(vertex_id, edge->get_to_id())){
                     for(auto iter = this->vertices->begin();iter!=this->vertices->end(); ++iter)
                     {
                         if(iter->get_id() == vertex_id){
@@ -63,7 +64,7 @@ namespace GraphLib {
                     }
                 }
                 else {
-                    throw EdgeLoopException(std::to_string(edge->get_id()));
+                    throw EdgeLoopException(vertex_id, edge);
                 }
 
             }

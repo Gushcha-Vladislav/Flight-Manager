@@ -114,7 +114,7 @@ class Vertex{
                     return true;
                 }
             }
-            throw EdgeDeletingException(std::to_string(to_id));
+            throw EdgeDeletingException(to_id,fly_time);
         }
 
 };

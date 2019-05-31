@@ -8,6 +8,8 @@ class Edge{
         int to_id;
         int fly_time;
     public :
+        Edge();
+        Edge(Edge *edge);
         Edge(int to_id, int fly_time);
         Edge(int id, int to_id, int fly_time);
         int get_to_id();

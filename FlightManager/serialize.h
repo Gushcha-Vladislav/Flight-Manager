@@ -6,6 +6,7 @@
 #include "singleton.h"
 #include "exceptions.h"
 #include "manipulator.h"
+#include "invariant.h"
 #include <cmath>
 
 #include <QJsonObject>
@@ -60,7 +61,8 @@ void Serializer::Serialize<T>::exportToJson(T* graph){
         obj["pos_y"] = std::trunc(iter->get_pos_y() * 100) / 100;
         for(auto iterEdge = iter->get_edges()->begin();iterEdge!=iter->get_edges()->end(); ++iterEdge)
         {
-            if(iter->get_id()!=iterEdge->get_to_id()){
+            if(Invariant<GraphLib::Graph<Vertex,Edge>>::loopChecker(iter->get_id(),iterEdge->get_to_id()) &&
+                    Invariant<GraphLib::Graph<Vertex,Edge>>::edgeHasEnd(graph,iterEdge->get_to_id())){
                 QJsonObject edge;
                 edge["id"] = iterEdge->get_id();
                 edge["to_id"] = iterEdge->get_to_id();
@@ -93,9 +95,21 @@ void Serializer::Serialize<T>::importFromJson(T* graph){
             try {
                 graph->add_edge(obj["id"].toInt(),new Edge(objEdges["id"].toInt(),objEdges["to_id"].toInt(),objEdges["fly_time"].toInt()));
             } catch (EdgeLoopException e) {
-                std::cerr<<"loop exception"<<std::endl;
+                std::cerr<<"Loop exception, edge id: "<<e.getEdge()->get_id()
+                        <<", edge id_to: "<<e.getEdge()->get_to_id()
+                       <<", edge fly_time: "<<e.getEdge()->get_fly_time()
+                      <<std::endl;
             }
 
+        }
+    }
+    for(auto iter = graph->getVertices()->begin();iter!=graph->getVertices()->end(); ++iter)
+    {
+        for(auto iterEdge = iter->get_edges()->begin();iterEdge!=iter->get_edges()->end(); ++iterEdge)
+        {
+            if(!Invariant<GraphLib::Graph<Vertex,Edge>>::edgeHasEnd(graph,iterEdge->get_to_id())){
+               iter->get_edges()->erase(iterEdge);
+            }
         }
     }
 }
