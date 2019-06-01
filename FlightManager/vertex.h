@@ -101,9 +101,10 @@ class Vertex{
         void delete_edge(int edge_id){
             for(auto iter = this->edges->begin();iter!=this->edges->end(); ++iter)
             {
-                if(iter->get_id() == edge_id)
+                if(iter->get_id() == edge_id){
                     this->edges->erase(iter);
-                break;
+                    break;
+                }
             }
         }
         bool delete_edge(int to_id, int fly_time){
